@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dociugkeqvde1"
 path.s3tc="res://.godot/imported/OfficeCeiling001_4K-JPG_Metalness.jpg-72a18864dc42d301ce1815a2d4f6962f.s3tc.ctex"
+path.etc2="res://.godot/imported/OfficeCeiling001_4K-JPG_Metalness.jpg-72a18864dc42d301ce1815a2d4f6962f.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Textures/OfficeCeiling001/OfficeCeiling001_4K-JPG_Metalness.jpg"
-dest_files=["res://.godot/imported/OfficeCeiling001_4K-JPG_Metalness.jpg-72a18864dc42d301ce1815a2d4f6962f.s3tc.ctex"]
+dest_files=["res://.godot/imported/OfficeCeiling001_4K-JPG_Metalness.jpg-72a18864dc42d301ce1815a2d4f6962f.s3tc.ctex", "res://.godot/imported/OfficeCeiling001_4K-JPG_Metalness.jpg-72a18864dc42d301ce1815a2d4f6962f.etc2.ctex"]
 
 [params]
 
@@ -37,5 +38,5 @@ process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
-process/size_limit=0
+process/size_limit=2048
 detect_3d/compress_to=0

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ds6ysubxkmd88"
 path.s3tc="res://.godot/imported/OfficeCeiling001_4K-JPG_Roughness.jpg-a6f0a4c62c6c86690aed88531e9d2d9e.s3tc.ctex"
+path.etc2="res://.godot/imported/OfficeCeiling001_4K-JPG_Roughness.jpg-a6f0a4c62c6c86690aed88531e9d2d9e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Textures/OfficeCeiling001/OfficeCeiling001_4K-JPG_Roughness.jpg"
-dest_files=["res://.godot/imported/OfficeCeiling001_4K-JPG_Roughness.jpg-a6f0a4c62c6c86690aed88531e9d2d9e.s3tc.ctex"]
+dest_files=["res://.godot/imported/OfficeCeiling001_4K-JPG_Roughness.jpg-a6f0a4c62c6c86690aed88531e9d2d9e.s3tc.ctex", "res://.godot/imported/OfficeCeiling001_4K-JPG_Roughness.jpg-a6f0a4c62c6c86690aed88531e9d2d9e.etc2.ctex"]
 
 [params]
 
@@ -37,5 +38,5 @@ process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
-process/size_limit=0
+process/size_limit=2048
 detect_3d/compress_to=0

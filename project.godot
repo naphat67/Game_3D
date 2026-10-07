@@ -112,3 +112,7 @@ locale/translations=PackedStringArray("res://Locales/Locales.en.translation", "r
 
 rendering_device/driver.windows="d3d12"
 anti_aliasing/quality/msaa_3d=1
+
+[rendering]
+textures/vram_compression/import_etc2_astc=true
+
