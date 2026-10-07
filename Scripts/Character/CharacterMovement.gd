@@ -226,6 +226,14 @@ func _init() -> void:
 	Sounds = Globals.CreateSoundPlayers(true, self)
 
 func _ready() -> void:
+	# Re-select the gameplay camera after the menu scene is replaced.
+	if (Head is Camera3D):
+		(Head as Camera3D).make_current()
+	# The first-person camera sits inside the player model; hide the local mesh
+	# so the hazmat helmet cannot fill the entire web viewport.
+	var playerSkin = get_node_or_null("PlayerSkin") as Node3D
+	if (playerSkin != null):
+		playerSkin.hide()
 	if (InventoryGUI != null):
 		InventoryGUI.hide()
 	InventoryOpen = false

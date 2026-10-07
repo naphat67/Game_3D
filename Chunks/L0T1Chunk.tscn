@@ -89,9 +89,9 @@ mesh = SubResource("QuadMesh_ia6io")
 [node name="OmniLight3D" type="OmniLight3D" parent="Lights/Light" unique_id=2075153493]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 light_color = Color(1, 0.92156863, 0, 1)
-light_energy = 4.0
-light_indirect_energy = 4.0
-light_volumetric_fog_energy = 4.0
+light_energy = 1.8
+light_indirect_energy = 1.0
+light_volumetric_fog_energy = 0.8
 light_size = 0.6
 distance_fade_begin = 60.0
 omni_range = 12.0

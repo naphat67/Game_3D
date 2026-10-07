@@ -285,6 +285,11 @@ func UpdateMultiplayer() -> void:
 			SpawnedMultiplayerPlayers[p["Username"]].PlaySound(soundStream[0], soundStream[1])
 
 func _ready() -> void:
+	# Keep the web build responsive while generating the initial chunk ring.
+	if (OS.has_feature("web")):
+		Globals.Instance.ViewDistance = mini(Globals.Instance.ViewDistance, 5)
+		Globals.Instance.ShadowViewDistance = mini(Globals.Instance.ShadowViewDistance, 5)
+
 	if (MUL == null):
 		MUL = MultiplayerConnection.new()
 		MUL.name = "Multiplayer"

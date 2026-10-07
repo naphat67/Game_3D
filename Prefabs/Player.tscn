@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bb6ahd78hh4w6" path="res://Scripts/Character/CharacterMovement.gd" id="1_x3d5u"]
 [ext_resource type="PackedScene" uid="uid://du4qj6k5pomli" path="res://Prefabs/PlayerSkin.tscn" id="2_b43ah"]
-[ext_resource type="Script" uid="uid://dshhl2lxlp27s" path="res://Scripts/I4.0/Conn.cs" id="2_shmu5"]
 [ext_resource type="Script" uid="uid://55ebtdire5kx" path="res://Scripts/Character/Phone.gd" id="3_vxq8l"]
 [ext_resource type="Script" uid="uid://cyh1k2jxo7er0" path="res://Scripts/Character/Phone_I4.0.gd" id="4_javds"]
 [ext_resource type="Theme" uid="uid://b3i1mafsd72c0" path="res://Themes/Phone.tres" id="4_shmu5"]
@@ -49,9 +48,6 @@ StaminaGUI = NodePath("GUI/Inventory/HBoxContainer/Parameters/VBoxContainer/Marg
 Head = NodePath("Camera3D")
 
 [node name="Scripts" type="Node" parent="." unique_id=1109398633]
-
-[node name="I4Conn" type="Node" parent="Scripts" unique_id=2102811963]
-script = ExtResource("2_shmu5")
 
 [node name="Phone" type="Node" parent="Scripts" unique_id=622918129 node_paths=PackedStringArray("PlayerScript", "GlobalGUI", "Apps", "NotCreatedApp", "CameraGUI")]
 script = ExtResource("3_vxq8l")
