@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://5614f2th5nyr"]
+
+[ext_resource type="Script" uid="uid://b47nsqkdjiwgb" path="res://Scripts/Entities/SimpleFollowPlayer.gd" id="1_g0gp4"]
+[ext_resource type="Texture2D" uid="uid://do5ca0pxlxehw" path="res://Textures/Smiler/Smiler.png" id="2_smiler"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bfmbs"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g0gp4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_entity"]
+albedo_color = Color(0.055, 0.035, 0.045, 1)
+roughness = 0.85
+
+[sub_resource type="SphereMesh" id="SphereMesh_eye"]
+radius = 0.09
+height = 0.18
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eye"]
+shading_mode = 0
+albedo_color = Color(1, 0.025, 0.015, 1)
+emission_enabled = true
+emission = Color(1, 0.015, 0.005, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_smiler"]
+size = Vector2(2.6, 1.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smiler"]
+transparency = 1
+shading_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("2_smiler")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 1.5
+billboard_mode = 1
+
+[node name="Smiler" type="CharacterBody3D" unique_id=1852328600 node_paths=PackedStringArray("Agent")]
+script = ExtResource("1_g0gp4")
+Agent = NodePath("NavigationAgent3D")
+
+[node name="SmilerFace" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.3, 0)
+mesh = SubResource("QuadMesh_smiler")
+surface_material_override/0 = SubResource("StandardMaterial3D_smiler")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1281336709]
+shape = SubResource("CapsuleShape3D_g0gp4")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1002358131]
+path_max_distance = 100.01

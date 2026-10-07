@@ -1,0 +1,528 @@
+[gd_scene format=3 uid="uid://cr0taqx4d6l1m"]
+
+[ext_resource type="Script" uid="uid://bb6ahd78hh4w6" path="res://Scripts/Character/CharacterMovement.gd" id="1_x3d5u"]
+[ext_resource type="PackedScene" uid="uid://du4qj6k5pomli" path="res://Prefabs/PlayerSkin.tscn" id="2_b43ah"]
+[ext_resource type="Script" uid="uid://dshhl2lxlp27s" path="res://Scripts/I4.0/Conn.cs" id="2_shmu5"]
+[ext_resource type="Script" uid="uid://55ebtdire5kx" path="res://Scripts/Character/Phone.gd" id="3_vxq8l"]
+[ext_resource type="Script" uid="uid://cyh1k2jxo7er0" path="res://Scripts/Character/Phone_I4.0.gd" id="4_javds"]
+[ext_resource type="Theme" uid="uid://b3i1mafsd72c0" path="res://Themes/Phone.tres" id="4_shmu5"]
+[ext_resource type="Texture2D" uid="uid://dige0hmhnbcf6" path="res://Themes/Icons/send.webp" id="6_gg3t4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yg3f5"]
+radius = 0.45
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ygst"]
+bg_color = Color(0.14406255, 0.14406255, 0.14406249, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lhekp"]
+bg_color = Color(0.10747974, 0.10747974, 0.10747967, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gg3t4"]
+bg_color = Color(0.33288053, 0.33288074, 0.33288068, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_javds"]
+bg_color = Color(0.6789437, 0.6789437, 0.6789436, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x3d5u"]
+bg_color = Color(0.2227425, 0.00037917405, 0.64979076, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b43ah"]
+bg_color = Color(0.42818975, 0.33897272, 0.9999698, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shmu5"]
+bg_color = Color(0.315787, 0.21888843, 2.4065375e-07, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxq8l"]
+bg_color = Color(0.6081111, 0.4479072, 5.7756904e-07, 1)
+
+[node name="Player" type="CharacterBody3D" unique_id=632983521 node_paths=PackedStringArray("InventoryGUI", "WaterGUI", "FoodGUI", "StaminaGUI", "Head") groups=["Player"]]
+floor_max_angle = 0.87266463
+script = ExtResource("1_x3d5u")
+InventoryGUI = NodePath("GUI/Inventory")
+WaterGUI = NodePath("GUI/Inventory/HBoxContainer/Parameters/VBoxContainer/MarginContainer/Stats/Water/ProgressBar")
+FoodGUI = NodePath("GUI/Inventory/HBoxContainer/Parameters/VBoxContainer/MarginContainer/Stats/Food/ProgressBar")
+StaminaGUI = NodePath("GUI/Inventory/HBoxContainer/Parameters/VBoxContainer/MarginContainer/Stats/Stamina/ProgressBar")
+Head = NodePath("Camera3D")
+
+[node name="Scripts" type="Node" parent="." unique_id=1109398633]
+
+[node name="I4Conn" type="Node" parent="Scripts" unique_id=2102811963]
+script = ExtResource("2_shmu5")
+
+[node name="Phone" type="Node" parent="Scripts" unique_id=622918129 node_paths=PackedStringArray("PlayerScript", "GlobalGUI", "Apps", "NotCreatedApp", "CameraGUI")]
+script = ExtResource("3_vxq8l")
+PlayerScript = NodePath("../..")
+GlobalGUI = NodePath("../../GUI")
+Apps = [NodePath("../../GUI/Phone/Screen/I4_0 App")]
+NotCreatedApp = NodePath("../../GUI/Phone/Screen/NotImplementedApp")
+CameraGUI = NodePath("../../CameraGUI")
+
+[node name="I4_0" type="Node" parent="Scripts/Phone" unique_id=2070561293 node_paths=PackedStringArray("PhoneScript", "Prompt_Text", "Prompt_UtilitiesBtn", "Prompt_FilesContainer", "Prompt_SendMsg", "MessagesContainer")]
+script = ExtResource("4_javds")
+PhoneScript = NodePath("..")
+Prompt_Text = NodePath("../../../GUI/Phone/Screen/I4_0 App/VBoxContainer/Prompt area/VBoxContainer/TextArea/Prompt")
+Prompt_UtilitiesBtn = NodePath("../../../GUI/Phone/Screen/I4_0 App/VBoxContainer/Prompt area/VBoxContainer/TextArea/Utilities")
+Prompt_Utilities = Dictionary[int, int]({
+0: 0,
+1: 1,
+2: 2,
+3: 3,
+4: 4
+})
+Prompt_FilesContainer = NodePath("../../../GUI/Phone/Screen/I4_0 App/VBoxContainer/Prompt area/VBoxContainer/Files/HBoxContainer")
+Prompt_SendMsg = NodePath("../../../GUI/Phone/Screen/I4_0 App/VBoxContainer/Prompt area/VBoxContainer/TextArea/SendBTN")
+MessagesContainer = NodePath("../../../GUI/Phone/Screen/I4_0 App/VBoxContainer/Message area/VBoxContainer")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1256130155]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.25)
+
+[node name="AudioListener3D" type="AudioListener3D" parent="Camera3D" unique_id=1472996809]
+
+[node name="PlayerSkin" parent="." unique_id=186075011 instance=ExtResource("2_b43ah")]
+transform = Transform3D(1, 0, -1.7484555e-07, 0, 1, 0, 1.7484555e-07, 0, 1, 0, 0, 0)
+
+[node name="PlayerCollider" type="CollisionShape3D" parent="." unique_id=1095730833]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_yg3f5")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=282320739]
+max_distance = 200.0
+doppler_tracking = 2
+
+[node name="GUI" type="Control" parent="." unique_id=35933405]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Phone" type="Control" parent="GUI" unique_id=923565049]
+layout_mode = 1
+anchor_left = 0.7986111
+anchor_top = 0.30864197
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("4_shmu5")
+metadata/_edit_use_anchors_ = true
+
+[node name="LightAmmo" type="Label" parent="GUI"]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 260.0
+offset_bottom = 56.0
+theme_override_colors/font_color = Color(0.55, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "Light balls: 0  |  Left click to fire"
+
+[node name="BG" type="Panel" parent="GUI/Phone" unique_id=783225992]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3ygst")
+
+[node name="Screen" type="Control" parent="GUI/Phone" unique_id=1479648982]
+anchors_preset = 0
+anchor_left = 0.04310345
+anchor_top = 0.03348214
+anchor_right = 0.95689654
+anchor_bottom = 0.89285713
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="GUI/Phone/Screen" unique_id=111503706]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Desktop" type="Control" parent="GUI/Phone/Screen" unique_id=2094572431]
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Wallpaper" type="TextureRect" parent="GUI/Phone/Screen/Desktop" unique_id=606203111]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Apps" type="GridContainer" parent="GUI/Phone/Screen/Desktop" unique_id=1863935698]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="I4_0" type="Button" parent="GUI/Phone/Screen/Desktop/Apps" unique_id=1454312449]
+layout_mode = 2
+text = "APP_I4.0"
+
+[node name="Camera" type="Button" parent="GUI/Phone/Screen/Desktop/Apps" unique_id=635405426]
+layout_mode = 2
+text = "APP_CAM"
+
+[node name="Notifications" type="Button" parent="GUI/Phone/Screen/Desktop/Apps" unique_id=475185062]
+layout_mode = 2
+text = "APP_NOTIF"
+
+[node name="I4_0 App" type="Control" parent="GUI/Phone/Screen" unique_id=1046761840]
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="GUI/Phone/Screen/I4_0 App" unique_id=515620357]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.19562104, 0.21670997, 0.5840503, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Phone/Screen/I4_0 App" unique_id=2035504993]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Message area" type="ScrollContainer" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer" unique_id=577219193]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Message area" unique_id=1743356532]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MessagePlaceholder" type="PanelContainer" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Message area/VBoxContainer" unique_id=1750588031]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Message area/VBoxContainer/MessagePlaceholder" unique_id=878139316]
+layout_mode = 2
+
+[node name="Role" type="Label" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Message area/VBoxContainer/MessagePlaceholder/VBoxContainer" unique_id=391625591]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "SENDER"
+
+[node name="ContentText" type="RichTextLabel" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Message area/VBoxContainer/MessagePlaceholder/VBoxContainer" unique_id=74239561]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "CONTENT TEXT"
+fit_content = true
+
+[node name="Prompt area" type="PanelContainer" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer" unique_id=1480441698]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Prompt area" unique_id=1004568675]
+layout_mode = 2
+
+[node name="TextArea" type="HBoxContainer" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Prompt area/VBoxContainer" unique_id=1367607553]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Utilities" type="MenuButton" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Prompt area/VBoxContainer/TextArea" unique_id=519872298]
+layout_mode = 2
+tooltip_text = "TT_BTN_I4.0_UTILITIES"
+text = "+"
+item_count = 5
+popup/item_0/text = "BTN_ATTACH_FLS"
+popup/item_0/id = 0
+popup/item_1/text = "BTN_TAKE_PICTURE"
+popup/item_1/id = 1
+popup/item_2/text = "BTN_DEL_CONV"
+popup/item_2/id = 2
+popup/item_3/id = 3
+popup/item_3/separator = true
+popup/item_4/text = "TOOL_SEARCH"
+popup/item_4/checkable = 1
+popup/item_4/checked = true
+popup/item_4/id = 4
+
+[node name="Prompt" type="TextEdit" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Prompt area/VBoxContainer/TextArea" unique_id=1688394500]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "PLACEHOLDER_PROMPT"
+scroll_fit_content_height = true
+
+[node name="SendBTN" type="TextureButton" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Prompt area/VBoxContainer/TextArea" unique_id=1640001252]
+custom_minimum_size = Vector2(26, 26)
+layout_mode = 2
+texture_normal = ExtResource("6_gg3t4")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Files" type="ScrollContainer" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Prompt area/VBoxContainer" unique_id=1118416399]
+layout_mode = 2
+size_flags_horizontal = 3
+vertical_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Phone/Screen/I4_0 App/VBoxContainer/Prompt area/VBoxContainer/Files" unique_id=1314671078]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="NotImplementedApp" type="Control" parent="GUI/Phone/Screen" unique_id=218435436]
+visible = false
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="PanelContainer" parent="GUI/Phone/Screen/NotImplementedApp" unique_id=1590074772]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GUI/Phone/Screen/NotImplementedApp" unique_id=2128557774]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "NOT_IMPLEMENTED_APP_MSG"
+autowrap_mode = 3
+
+[node name="CloseBTN" type="Button" parent="GUI/Phone" unique_id=1870590266]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4525862
+anchor_top = 0.921875
+anchor_right = 0.5387931
+anchor_bottom = 0.96651787
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_lhekp")
+metadata/_edit_use_anchors_ = true
+
+[node name="Inventory" type="PanelContainer" parent="GUI" unique_id=1921782567]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Inventory" unique_id=1921054980]
+layout_mode = 2
+
+[node name="Equipment" type="PanelContainer" parent="GUI/Inventory/HBoxContainer" unique_id=1812636059]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Inventory/HBoxContainer/Equipment" unique_id=1444403023]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI/Inventory/HBoxContainer/Equipment/VBoxContainer" unique_id=1010768085]
+layout_mode = 2
+text = "LBL_EQUIPMENT"
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI/Inventory/HBoxContainer/Equipment/VBoxContainer" unique_id=346228230]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Inventory" type="PanelContainer" parent="GUI/Inventory/HBoxContainer" unique_id=1063998150]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Inventory/HBoxContainer/Inventory" unique_id=914819078]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI/Inventory/HBoxContainer/Inventory/VBoxContainer" unique_id=406978206]
+layout_mode = 2
+text = "LBL_INVENTORY"
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI/Inventory/HBoxContainer/Inventory/VBoxContainer" unique_id=2001890753]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="GUI/Inventory/HBoxContainer/Inventory/VBoxContainer/MarginContainer" unique_id=1142663746]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 10
+
+[node name="Parameters" type="PanelContainer" parent="GUI/Inventory/HBoxContainer" unique_id=864522143]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Inventory/HBoxContainer/Parameters" unique_id=965328559]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI/Inventory/HBoxContainer/Parameters/VBoxContainer" unique_id=1602467899]
+layout_mode = 2
+text = "LBL_PARAMETERS"
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI/Inventory/HBoxContainer/Parameters/VBoxContainer" unique_id=2066253057]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 20
+
+[node name="Stats" type="VBoxContainer" parent="GUI/Inventory/HBoxContainer/Parameters/VBoxContainer/MarginContainer" unique_id=849277437]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Sanity" type="HBoxContainer" parent="GUI/Inventory/HBoxContainer/Parameters/VBoxContainer/MarginContainer/Stats" unique_id=1173618699]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="GUI/Inventory/HBoxContainer/Parameters/VBoxContainer/MarginContainer/Stats/Sanity" unique_id=1768288662]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Sanity:    "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="GUI/Inventory/HBoxContainer/Parameters/VBoxContainer/MarginContainer/Stats/Sanity" unique_id=1213476032]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_gg3t4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_javds")
+step = 0.0
+value = 50.0
+rounded = true
+
+[node name="Water" type="HBoxContainer" parent="GUI/Inventory/HBoxContainer/Parameters/VBoxContainer/MarginContainer/Stats" unique_id=1600349898]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="GUI/Inventory/HBoxContainer/Parameters/VBoxContainer/MarginContainer/Stats/Water" unique_id=1515634512]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Water:    "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="GUI/Inventory/HBoxContainer/Parameters/VBoxContainer/MarginContainer/Stats/Water" unique_id=1992842226]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_x3d5u")
+theme_override_styles/fill = SubResource("StyleBoxFlat_b43ah")
+step = 0.0
+value = 50.0
+rounded = true
+
+[node name="Food" type="HBoxContainer" parent="GUI/Inventory/HBoxContainer/Parameters/VBoxContainer/MarginContainer/Stats" unique_id=742500898]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="GUI/Inventory/HBoxContainer/Parameters/VBoxContainer/MarginContainer/Stats/Food" unique_id=649904084]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Food:      "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="GUI/Inventory/HBoxContainer/Parameters/VBoxContainer/MarginContainer/Stats/Food" unique_id=1106502451]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_shmu5")
+theme_override_styles/fill = SubResource("StyleBoxFlat_vxq8l")
+step = 0.0
+value = 50.0
+rounded = true
+
+[node name="Stamina" type="HBoxContainer" parent="GUI/Inventory/HBoxContainer/Parameters/VBoxContainer/MarginContainer/Stats" unique_id=1006991126]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="GUI/Inventory/HBoxContainer/Parameters/VBoxContainer/MarginContainer/Stats/Stamina" unique_id=1245810081]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Stamina:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="GUI/Inventory/HBoxContainer/Parameters/VBoxContainer/MarginContainer/Stats/Stamina" unique_id=1608413288]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_gg3t4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_javds")
+step = 0.0
+value = 50.0
+rounded = true
+
+[node name="CameraGUI" type="Control" parent="." unique_id=235178087]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="CameraGUI" unique_id=526703095]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8871528
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5882353)
+metadata/_edit_use_anchors_ = true
+
+[node name="TakePictureBTN" type="Button" parent="CameraGUI/ColorRect" unique_id=1780452322]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.053846154
+anchor_top = 0.47608024
+anchor_right = 0.9461538
+anchor_bottom = 0.52391976
+grow_horizontal = 2
+grow_vertical = 2
+text = "TAKE PICTURE"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="GUI/Phone/Screen/Desktop/Apps/I4_0" to="Scripts/Phone" method="OpenApp" binds= [&"I4_0 App"]]
+[connection signal="pressed" from="GUI/Phone/Screen/Desktop/Apps/Camera" to="Scripts/Phone" method="CameraWaitForPicture" binds= [true]]
+[connection signal="pressed" from="GUI/Phone/Screen/Desktop/Apps/Notifications" to="Scripts/Phone" method="OpenApp" binds= [&"Notifications App"]]
+[connection signal="pressed" from="GUI/Phone/CloseBTN" to="Scripts/Phone" method="CloseCurrentApp"]
+[connection signal="pressed" from="CameraGUI/ColorRect/TakePictureBTN" to="Scripts/Phone" method="__camera_take_picture__"]

@@ -1,0 +1,15 @@
+{
+    "Worlds": [
+        {
+            "Name": "Level 0",
+            "NoiseMaps": null,
+            "Seed": 1476111396,
+            "ChunkData": [],
+            "__type__": "Map"
+        }
+    ],
+    "Players": [],
+    "Objects": [],
+    "ChatMessages": [],
+    "__type__": "Info"
+}

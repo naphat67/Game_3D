@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dsq3hstcbl4df"
+path="res://.godot/imported/OptimizedSmallPillar.obj-2abcc9ed13880c2c6d7604861359ce62.mesh"
+
+[deps]
+
+files=["res://.godot/imported/OptimizedSmallPillar.obj-2abcc9ed13880c2c6d7604861359ce62.mesh"]
+
+source_file="res://Meshes/OptimizedSmallPillar.obj"
+dest_files=["res://.godot/imported/OptimizedSmallPillar.obj-2abcc9ed13880c2c6d7604861359ce62.mesh", "res://.godot/imported/OptimizedSmallPillar.obj-2abcc9ed13880c2c6d7604861359ce62.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

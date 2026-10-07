@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dvyagsyulanr"]
+
+[ext_resource type="Texture2D" uid="uid://c17u52st2v25k" path="res://Textures/Level 0 Carpet/Color.png" id="1_nwj12"]
+[ext_resource type="Texture2D" uid="uid://jcjbqre8ap65" path="res://Textures/Level 0 Carpet/Normal.png" id="2_vri7a"]
+
+[resource]
+albedo_texture = ExtResource("1_nwj12")
+metallic_specular = 0.25
+normal_enabled = true
+normal_texture = ExtResource("2_vri7a")
+backlight_enabled = true
+backlight = Color(0.39308554, 0.3930855, 0.39308548, 1)
+uv1_scale = Vector3(2, 2, 2)

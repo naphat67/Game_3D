@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://cg4u7qmh4d0bi"]
+
+[ext_resource type="PackedScene" uid="uid://b1dp1nklctvn4" path="res://Chunks/L0T1Chunk.tscn" id="2_dp2pb"]
+[ext_resource type="Script" uid="uid://b4o0ne3il63m4" path="res://Scripts/WorldGen/WorldGen.gd" id="2_x0cd5"]
+[ext_resource type="PackedScene" uid="uid://5614f2th5nyr" path="res://Prefabs/SimpleFollowPlayer.tscn" id="4_fjb22"]
+[ext_resource type="PackedScene" uid="uid://cr0taqx4d6l1m" path="res://Prefabs/Player.tscn" id="7_oc5sq"]
+[ext_resource type="Script" path="res://Scripts/WorldGen/LightBallSpawner.gd" id="8_lightball_spawner"]
+
+[sub_resource type="Environment" id="Environment_fjb22"]
+background_mode = 1
+background_color = Color(0.0885599, 0.0885599, 0.0885599, 1)
+background_energy_multiplier = 0.0
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_1a2o4"]
+
+[node name="Level 0" type="Node3D" unique_id=291746162]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2031605785]
+environment = SubResource("Environment_fjb22")
+camera_attributes = SubResource("CameraAttributesPhysical_1a2o4")
+
+[node name="World" type="Node3D" parent="." unique_id=167701895 node_paths=PackedStringArray("Player")]
+script = ExtResource("2_x0cd5")
+ChunkSize = Vector3i(10, 5, 10)
+Chunks = Array[PackedScene]([ExtResource("2_dp2pb")])
+LevelName = "Level 0"
+BlackTextureInsteadOfNoise = true
+MultipleFloors = false
+Player = NodePath("../Player")
+PlayerSpawnMin = Vector3i(10, 1, 10)
+PlayerSpawnMax = Vector3i(10, 1, 10)
+PlayerDieFalling = true
+PlayerDieFallingDistance = 5.0
+Multiplayer = false
+
+[node name="Player" parent="." unique_id=632983521 instance=ExtResource("7_oc5sq")]
+
+[node name="LightBallSpawner" type="Node" parent="." node_paths=PackedStringArray("Player")]
+script = ExtResource("8_lightball_spawner")
+Player = NodePath("../Player")
+
+[node name="Smiler" parent="." unique_id=1852328600 node_paths=PackedStringArray("Player") instance=ExtResource("4_fjb22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 2)
+Player = NodePath("../Player")

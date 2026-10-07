@@ -1,0 +1,975 @@
+[gd_scene format=4 uid="uid://upk3pgwp2pnb"]
+
+[ext_resource type="Script" uid="uid://ba1jv1aiwc8mr" path="res://Scripts/ConfigManager.gd" id="1_853f1"]
+[ext_resource type="VideoStream" uid="uid://dify0hp4kgbv2" path="res://Video/MainMenu.ogv" id="1_tt5f1"]
+[ext_resource type="Script" uid="uid://cqlahu55orylb" path="res://Scripts/MainMenu.gd" id="2_ghw46"]
+[ext_resource type="Script" uid="uid://f7xo621spsj2" path="res://Scripts/SetLabelValue.gd" id="3_8saeu"]
+[ext_resource type="Material" uid="uid://dvyagsyulanr" path="res://Textures/Level 0 Carpet/Level 0 Carpet.tres" id="3_xim88"]
+[ext_resource type="Theme" uid="uid://h2kqsf511wl1" path="res://Themes/Menu_Theme.tres" id="4_8um5k"]
+[ext_resource type="FontFile" uid="uid://bajsv1yybayep" path="res://Themes/Fonts/BetterVCR 25.09.ttf" id="4_df05h"]
+[ext_resource type="Material" uid="uid://dyqykcnprjxfv" path="res://Textures/OfficeCeiling001/OfficeCeiling001_4K-JPG-ALT1.tres" id="4_loo7a"]
+[ext_resource type="Material" uid="uid://doq4uwyc5acgo" path="res://Textures/Level 0 Wall/Level 0 Wall-ALT1.tres" id="5_loo7a"]
+[ext_resource type="Texture2D" uid="uid://do5ca0pxlxehw" path="res://Textures/Smiler/Smiler.png" id="12_2x1g0"]
+
+[sub_resource type="Environment" id="Environment_loo7a"]
+background_mode = 1
+background_color = Color(0.12225223, 0.12225223, 0.12225223, 1)
+ssao_enabled = true
+glow_enabled = true
+volumetric_fog_density = 0.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_koqhg"]
+size = Vector2(8, 8)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rrcx7"]
+flip_faces = true
+size = Vector2(8, 8)
+
+[sub_resource type="QuadMesh" id="QuadMesh_2x1g0"]
+flip_faces = true
+orientation = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m7n2d"]
+metallic_specular = 0.0
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c2aoj"]
+resource_name = "Pared_LVL_0"
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_cm06x"]
+_surfaces = [{
+"aabb": AABB(-0.0055135284, -0.050345656, -0.01, 1e-05, 0.10065363, 0.02),
+"format": 34359742465,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAgADAAAA"),
+"name": "Pared_LVL_0",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("1Kq0uz83Tr0K1yM81Kq0u70PTj0K1yM81Kq0u70PTj0K1yO81Kq0uz83Tr0K1yO8")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_04cxs"]
+resource_name = "Cube_001"
+_surfaces = [{
+"aabb": AABB(-0.0055135284, -0.050345656, -0.01, 1e-05, 0.10065363, 0.02),
+"attribute_data": PackedByteArray("okY4QGdEMEDSiPC/okYwQESN8L9nRADAZ0Q4QKJGAMA="),
+"format": 34359742487,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAgADAAAA"),
+"material": SubResource("StandardMaterial3D_c2aoj"),
+"name": "Pared_LVL_0",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("1Kq0uz83Tr0K1yM81Kq0u70PTj0K1yM81Kq0u70PTj0K1yO81Kq0uz83Tr0K1yO8////f/9/AID///9//38AgP///3//fwCA////f/9/AIA=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_cm06x")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_dlykn"]
+_surfaces = [{
+"aabb": AABB(-0.0055135284, -0.050345656, -0.01, 1e-05, 0.10065363, 0.02),
+"format": 34359742465,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAgADAAAA"),
+"name": "Pared_LVL_0",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("1Kq0uz83Tr0K1yM81Kq0u70PTj0K1yM81Kq0u70PTj0K1yO81Kq0uz83Tr0K1yO8")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_oamaf"]
+resource_name = "Cube_003"
+_surfaces = [{
+"aabb": AABB(-0.0055135284, -0.050345656, -0.01, 1e-05, 0.10065363, 0.02),
+"attribute_data": PackedByteArray("NeIUQAXiDEAKxKm/NeIMQGrEqb8KxLm/BeIUQGrEub8="),
+"format": 34359742487,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAgADAAAA"),
+"material": SubResource("StandardMaterial3D_c2aoj"),
+"name": "Pared_LVL_0",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("1Kq0uz83Tr0K1yM81Kq0u70PTj0K1yM81Kq0u70PTj0K1yO81Kq0uz83Tr0K1yO8////f/9/AID///9//38AgP///3//fwCA////f/9/AIA=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_dlykn")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ltf3w"]
+_surfaces = [{
+"aabb": AABB(-0.0014838922, -0.01437768, -0.01, 0.0028844401, 0.04294747, 0.02),
+"format": 34359742465,
+"index_count": 12,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAAAAMAAwAFAAQA"),
+"name": "Pared_LVL_0",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 6,
+"vertex_data": PackedByteArray("cZK3OjEL6jwK1yM8KX/CujEL6jwK1yM8KX/CujEL6jwK1yO8cZK3OjEL6jwK1yO8mJK3OlyQa7wK1yM8mJK3OlyQa7wK1yO8")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_1kkvs"]
+resource_name = "Cube_005"
+_surfaces = [{
+"aabb": AABB(-0.0014838922, -0.01437768, -0.01, 0.0028844401, 0.04294747, 0.02),
+"attribute_data": PackedByteArray("lKUdP5Ha/T/8s8Q+Dtj9P9e0xD4itTu/AqYdPxywO79yROE/aUbRP9KMQr9yRNE/5IhCv9KMYr9pRuE/5Ihivw=="),
+"format": 34359742487,
+"index_count": 12,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQA"),
+"material": SubResource("StandardMaterial3D_c2aoj"),
+"name": "Pared_LVL_0",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("cZK3OjEL6jwK1yM8KX/CujEL6jwK1yM8KX/CujEL6jwK1yO8cZK3OjEL6jwK1yO8mJK3OlyQa7wK1yM8cZK3OjEL6jwK1yM8cZK3OjEL6jwK1yO8mJK3OlyQa7wK1yO8/3//////AsD/f/////8CwP9//////wLA/3//////AsD+//9//38AgP7//3//fwCA/v//f/9/AID+//9//38AgA==")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_ltf3w")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_1wojj"]
+_surfaces = [{
+"aabb": AABB(0.0014005422, -0.028447852, -0.01, 1e-05, 0.04144914, 0.02),
+"format": 34359742465,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAgADAAAA"),
+"name": "Pared_LVL_0",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("j5K3OngL6bwK1yM8ZpK3OlsDVTwK1yM8ZpK3OlsDVTwK1yO8j5K3OngL6bwK1yO8")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_hkxlr"]
+resource_name = "Cube_006"
+_surfaces = [{
+"aabb": AABB(0.0014005422, -0.028447852, -0.01, 1e-05, 0.04144914, 0.02),
+"attribute_data": PackedByteArray("0oHZPyp/yT9Q/jK/0oHJP6QDM79Q/lK/KX/ZP6QDU78="),
+"format": 34359742487,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAgADAAAA"),
+"material": SubResource("StandardMaterial3D_c2aoj"),
+"name": "Pared_LVL_0",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("j5K3OngL6bwK1yM8ZpK3OlsDVTwK1yM8ZpK3OlsDVTwK1yO8j5K3OngL6bwK1yO8/v//f/9/AID+//9//38AgP7//3//fwCA/v//f/9/AIA=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_1wojj")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pjscj"]
+transparency = 1
+albedo_texture = ExtResource("12_2x1g0")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qw264"]
+resource_name = "Entidad Smiler"
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission_energy_multiplier = 75.0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_bsxhc"]
+_surfaces = [{
+"aabb": AABB(-0.01626078, -0.01, -2.2146702e-05, 0.03252156, 0.02, 4.4294597e-05),
+"format": 34359742465,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAgADAAAA"),
+"name": "Entidad Smiler",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("VDWFvArXIzxmxrm3VDWFPArXIzw9yrk3VDWFPArXI7z2yLk3VDWFvArXI7yux7m3")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_wluni"]
+resource_name = "Plane_005"
+_surfaces = [{
+"aabb": AABB(-0.01626078, -0.01, -2.2146702e-05, 0.03252156, 0.02, 4.4294597e-05),
+"attribute_data": PackedByteArray("AAAAAAAAAAAAAIA/AAAAAAAAgD8AAIA/AAAAAAAAgD8="),
+"format": 34359742487,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAgADAAAA"),
+"material": SubResource("StandardMaterial3D_qw264"),
+"name": "Entidad Smiler",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("VDWFvArXIzxmxrm3VDWFPArXIzw9yrk3VDWFPArXI7z2yLk3VDWFvArXI7yux7m30n//f9L//7/Sf/9/0v//v9J//3/S//+/0n//f9L//78=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_bsxhc")
+
+[sub_resource type="Animation" id="Animation_loo7a"]
+resource_name = "MainMenuAnim"
+length = 60.0
+loop_mode = 1
+step = 0.016666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Smiler:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10.0001, 10.02, 16, 30),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ceiling/Lights/Light 1:light_negative")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 10.0001, 10.02, 10.1, 10.12, 10.3, 10.35, 10.5, 10.6, 12, 30, 30.25, 30.35, 30.5, 30.625),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true, false, true, false, true, false, true, false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Smiler:transparency")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(12, 16, 18),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_if7li"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Smiler:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ceiling/Lights/Light 1:light_negative")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Smiler:transparency")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_if7li"]
+_data = {
+&"MainMenuAnim": SubResource("Animation_loo7a"),
+&"RESET": SubResource("Animation_if7li")
+}
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_loo7a"]
+content_margin_top = 20.0
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 0
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_8um5k"]
+content_margin_left = 25.0
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8um5k"]
+content_margin_left = 30.0
+content_margin_top = 30.0
+content_margin_right = 30.0
+content_margin_bottom = 30.0
+bg_color = Color(0.03137255, 0.043137256, 0.06666667, 1)
+
+[node name="MainMenu" type="Control" unique_id=149137781]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Scripts" type="Node" parent="." unique_id=1000937513]
+
+[node name="ConfigManager" type="Node" parent="Scripts" unique_id=749585586 node_paths=PackedStringArray("GUI_Elements")]
+script = ExtResource("1_853f1")
+GUI_Elements = {
+&"CameraQualityLevel": NodePath("../../PanelContainer/Options/TabContainer/TAB_GAME/VBoxContainer/Camera quality level/OptionButton"),
+&"CameraSaveCompressionLevel": NodePath("../../PanelContainer/Options/TabContainer/TAB_GAME/VBoxContainer/Camera compression level/OptionButton"),
+&"GenerationTime": NodePath("../../PanelContainer/Options/TabContainer/TAB_GAME/VBoxContainer/Map update time/Slider/HSlider"),
+&"Sensibility": NodePath("../../PanelContainer/Options/TabContainer/TAB_CONTROLS/VBoxContainer/Mouse sensibility/Slider/HSlider"),
+&"ShadowViewDistance": NodePath("../../PanelContainer/Options/TabContainer/TAB_GRAPHICS/VBoxContainer/Shadow distance/Slider/HSlider"),
+&"Sound_Entity": NodePath("../../PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/Entity volume/Slider/HSlider"),
+&"Sound_Music": NodePath("../../PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/Music volume/Slider/HSlider"),
+&"Sound_SFX": NodePath("../../PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/SFX volume/Slider/HSlider"),
+&"ViewDistance": NodePath("../../PanelContainer/Options/TabContainer/TAB_GRAPHICS/VBoxContainer/View distance/Slider/HSlider")
+}
+
+[node name="MainMenu" type="Node" parent="Scripts" unique_id=1672166350 node_paths=PackedStringArray("SidePanelGUI", "OptionsGUI", "CreditsGUI", "CreditsLBL")]
+script = ExtResource("2_ghw46")
+SidePanelGUI = NodePath("../../PanelContainer")
+OptionsGUI = NodePath("../../PanelContainer/Options")
+CreditsGUI = NodePath("../../PanelContainer/Credits")
+CreditsLBL = NodePath("../../PanelContainer/Credits/RichTextLabel")
+
+[node name="Scene" type="Node3D" parent="." unique_id=456500584]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Scene" unique_id=1826983404]
+environment = SubResource("Environment_loo7a")
+
+[node name="Camera3D" type="Camera3D" parent="Scene" unique_id=1375382829]
+transform = Transform3D(0.8328673, -0.21054354, -0.5118627, 0.08418597, 0.96225023, -0.25881904, 0.54703265, 0.17247027, 0.8191515, -7, 0.1, 7)
+current = true
+fov = 56.0
+
+[node name="Floor" type="Node3D" parent="Scene" unique_id=1407327866]
+
+[node name="Floor" type="MeshInstance3D" parent="Scene/Floor" unique_id=1088067476]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 4)
+material_override = ExtResource("3_xim88")
+mesh = SubResource("PlaneMesh_koqhg")
+
+[node name="Floor2" type="MeshInstance3D" parent="Scene/Floor" unique_id=1893933347]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4)
+material_override = ExtResource("3_xim88")
+mesh = SubResource("PlaneMesh_koqhg")
+
+[node name="Floor3" type="MeshInstance3D" parent="Scene/Floor" unique_id=551215777]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -4)
+material_override = ExtResource("3_xim88")
+mesh = SubResource("PlaneMesh_koqhg")
+
+[node name="Floor4" type="MeshInstance3D" parent="Scene/Floor" unique_id=1171526412]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4)
+material_override = ExtResource("3_xim88")
+mesh = SubResource("PlaneMesh_koqhg")
+
+[node name="Floor5" type="MeshInstance3D" parent="Scene/Floor" unique_id=684235648]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 4)
+material_override = ExtResource("3_xim88")
+mesh = SubResource("PlaneMesh_koqhg")
+
+[node name="Floor6" type="MeshInstance3D" parent="Scene/Floor" unique_id=724942909]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -4)
+material_override = ExtResource("3_xim88")
+mesh = SubResource("PlaneMesh_koqhg")
+
+[node name="Ceiling" type="Node3D" parent="Scene" unique_id=971292516]
+
+[node name="Ceiling" type="MeshInstance3D" parent="Scene/Ceiling" unique_id=44302511]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3.75, 4)
+material_override = ExtResource("4_loo7a")
+mesh = SubResource("PlaneMesh_rrcx7")
+
+[node name="Ceiling2" type="MeshInstance3D" parent="Scene/Ceiling" unique_id=687765536]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3.75, -4)
+material_override = ExtResource("4_loo7a")
+mesh = SubResource("PlaneMesh_rrcx7")
+
+[node name="Ceiling3" type="MeshInstance3D" parent="Scene/Ceiling" unique_id=501209990]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.75, 4)
+material_override = ExtResource("4_loo7a")
+mesh = SubResource("PlaneMesh_rrcx7")
+
+[node name="Ceiling4" type="MeshInstance3D" parent="Scene/Ceiling" unique_id=107646762]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.75, -4)
+material_override = ExtResource("4_loo7a")
+mesh = SubResource("PlaneMesh_rrcx7")
+
+[node name="Ceiling5" type="MeshInstance3D" parent="Scene/Ceiling" unique_id=1206531882]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3.75, 4)
+material_override = ExtResource("4_loo7a")
+mesh = SubResource("PlaneMesh_rrcx7")
+
+[node name="Ceiling6" type="MeshInstance3D" parent="Scene/Ceiling" unique_id=1318587709]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3.75, -4)
+material_override = ExtResource("4_loo7a")
+mesh = SubResource("PlaneMesh_rrcx7")
+
+[node name="Lights" type="Node3D" parent="Scene/Ceiling" unique_id=1442918210]
+
+[node name="CeilingLight" type="MeshInstance3D" parent="Scene/Ceiling/Lights" unique_id=344776018]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.74, -1.95)
+mesh = SubResource("QuadMesh_2x1g0")
+surface_material_override/0 = SubResource("StandardMaterial3D_m7n2d")
+
+[node name="CeilingLight2" type="MeshInstance3D" parent="Scene/Ceiling/Lights" unique_id=739760853]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98, 3.74, -1.95)
+mesh = SubResource("QuadMesh_2x1g0")
+surface_material_override/0 = SubResource("StandardMaterial3D_m7n2d")
+
+[node name="CeilingLight3" type="MeshInstance3D" parent="Scene/Ceiling/Lights" unique_id=1333030496]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.94, 3.74, -1.965)
+mesh = SubResource("QuadMesh_2x1g0")
+surface_material_override/0 = SubResource("StandardMaterial3D_m7n2d")
+
+[node name="CeilingLight4" type="MeshInstance3D" parent="Scene/Ceiling/Lights" unique_id=152872926]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98, 3.74, 5.04)
+mesh = SubResource("QuadMesh_2x1g0")
+surface_material_override/0 = SubResource("StandardMaterial3D_m7n2d")
+
+[node name="Light 1" type="OmniLight3D" parent="Scene/Ceiling/Lights" unique_id=874906251]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.625, -2)
+light_color = Color(1, 0.92156863, 0.8235294, 1)
+light_energy = 2.0
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 2.0
+light_size = 0.615
+shadow_enabled = true
+shadow_opacity = 0.85
+omni_range = 8.0
+omni_attenuation = 0.75
+
+[node name="Light 2" type="OmniLight3D" parent="Scene/Ceiling/Lights" unique_id=532524886]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3.625, -2)
+light_color = Color(1, 0.92156863, 0.8235294, 1)
+light_energy = 2.0
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 2.0
+light_size = 0.615
+shadow_enabled = true
+shadow_opacity = 0.85
+omni_range = 8.0
+omni_attenuation = 0.75
+
+[node name="Light 3" type="OmniLight3D" parent="Scene/Ceiling/Lights" unique_id=222177628]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3.625, 5)
+light_color = Color(1, 0.92156863, 0.8235294, 1)
+light_energy = 2.0
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 2.0
+light_size = 0.615
+shadow_opacity = 0.85
+omni_range = 8.0
+omni_attenuation = 0.75
+
+[node name="Light 4" type="OmniLight3D" parent="Scene/Ceiling/Lights" unique_id=621348496]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 3.625, -2)
+light_color = Color(1, 0.92156863, 0.8235294, 1)
+light_energy = 2.0
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 2.0
+light_size = 0.615
+shadow_opacity = 0.85
+omni_range = 8.0
+omni_attenuation = 0.75
+
+[node name="Light 5" type="OmniLight3D" parent="Scene/Ceiling/Lights" unique_id=2068690112]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 3.625, 5)
+light_color = Color(1, 0.92156863, 0.8235294, 1)
+light_energy = 2.0
+light_indirect_energy = 2.0
+light_volumetric_fog_energy = 2.0
+light_size = 0.615
+shadow_opacity = 0.85
+omni_range = 8.0
+omni_attenuation = 0.75
+
+[node name="Walls" type="Node3D" parent="Scene" unique_id=504728878]
+
+[node name="Lvl0Wall1" type="MeshInstance3D" parent="Scene/Walls" unique_id=173548277]
+transform = Transform3D(-8.742278e-06, 199.99998, 2.3841858e-05, 0, -2.3841858e-05, 199.99998, 200, 8.742277e-06, 1.0421607e-12, -1.9999996, 1.8235706, -6.979535)
+material_override = ExtResource("5_loo7a")
+mesh = SubResource("ArrayMesh_04cxs")
+
+[node name="Lvl0Wall2" type="MeshInstance3D" parent="Scene/Walls" unique_id=1189553948]
+transform = Transform3D(-200, 3.1786512e-06, -1.3027009e-12, 5.9604645e-06, -2.3841858e-05, 199.99998, 1.509958e-05, 200, 2.9802322e-05, 6.527545, 1.8235706, 1.500604)
+material_override = ExtResource("5_loo7a")
+mesh = SubResource("ArrayMesh_oamaf")
+
+[node name="Lvl0Wall3" type="MeshInstance3D" parent="Scene/Walls" unique_id=1543672232]
+transform = Transform3D(-200, 3.1786512e-06, -1.3027009e-12, 5.9604645e-06, -2.3841858e-05, 199.99998, 1.509958e-05, 200, 2.9802322e-05, 0.16840243, 1.8235706, -5.942111)
+material_override = ExtResource("5_loo7a")
+mesh = SubResource("ArrayMesh_1kkvs")
+
+[node name="Lvl0Wall4" type="MeshInstance3D" parent="Scene/Walls" unique_id=259896965]
+transform = Transform3D(-200, 3.1786512e-06, -1.3027009e-12, 5.9604645e-06, -2.3841858e-05, 199.99998, 1.509958e-05, 200, 2.9802322e-05, 2.7372794, 1.8235706, 8.904905)
+material_override = ExtResource("5_loo7a")
+mesh = SubResource("ArrayMesh_hkxlr")
+
+[node name="Smiler" type="MeshInstance3D" parent="Scene" unique_id=863840765]
+transform = Transform3D(45.41706, -7.946377, -56.5414, 0, 72.247406, -10.153709, 57.097065, 6.3208337, 44.975063, 2.2142653, 1.7087802, 0.03697598)
+visible = false
+material_override = SubResource("StandardMaterial3D_pjscj")
+transparency = 1.0
+mesh = SubResource("ArrayMesh_wluni")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Scene" unique_id=841043383]
+libraries/ = SubResource("AnimationLibrary_if7li")
+autoplay = &"MainMenuAnim"
+
+[node name="Background" type="VideoStreamPlayer" parent="." unique_id=107242190]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("1_tt5f1")
+autoplay = true
+expand = true
+loop = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=661044558]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.06336805
+anchor_top = 0.28549376
+anchor_right = 0.2578125
+anchor_bottom = 0.65586424
+offset_top = 3.0517578e-05
+offset_bottom = -3.0517578e-05
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_8um5k")
+metadata/_edit_use_anchors_ = true
+
+[node name="Play" type="Button" parent="VBoxContainer" unique_id=674639238]
+layout_mode = 2
+tooltip_text = "NOTE:
+This build contains Level 0 only. Press Play to enter Level 0 directly.
+
+Make sure your multiplayer username and password are correct and that nobody is connected as the same user. The game might crash if there is a multiplayer error."
+theme_override_fonts/font = ExtResource("4_df05h")
+text = "BTN_PLAY"
+autowrap_mode = 3
+
+[node name="Options" type="Button" parent="VBoxContainer" unique_id=68935362]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
+text = "BTN_OPTIONS"
+autowrap_mode = 3
+
+[node name="Credits" type="Button" parent="VBoxContainer" unique_id=2038905072]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
+text = "BTN_CREDITS"
+autowrap_mode = 3
+
+[node name="Exit" type="Button" parent="VBoxContainer" unique_id=1426430398]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
+text = "BTN_EXIT"
+autowrap_mode = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=906972168]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28125
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("4_8um5k")
+metadata/_edit_use_anchors_ = true
+
+[node name="Options" type="VBoxContainer" parent="PanelContainer" unique_id=1832151714]
+visible = false
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="PanelContainer/Options" unique_id=1790443144]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("4_df05h")
+current_tab = 0
+
+[node name="TAB_GRAPHICS" type="ScrollContainer" parent="PanelContainer/Options/TabContainer" unique_id=854448931]
+layout_mode = 2
+horizontal_scroll_mode = 0
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS" unique_id=1353018482]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="View distance" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/VBoxContainer" unique_id=1166238926]
+layout_mode = 2
+tooltip_text = "TT_VIEW_DISTANCE"
+
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/VBoxContainer/View distance" unique_id=1628722076]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
+text = "LBL_VIEW_DISTANCE"
+
+[node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/VBoxContainer/View distance" unique_id=1453724312]
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/VBoxContainer/View distance/Slider" unique_id=794077893]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 10.0
+max_value = 75.0
+value = 30.0
+rounded = true
+
+[node name="Control" type="Control" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/VBoxContainer/View distance/Slider" unique_id=1819535453]
+layout_mode = 2
+
+[node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/VBoxContainer/View distance/Slider" unique_id=566133038 node_paths=PackedStringArray("Sl")]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78431374, 0.65882355, 0.19607843, 1)
+theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_8um5k")
+text = "99999"
+script = ExtResource("3_8saeu")
+Sl = NodePath("../HSlider")
+
+[node name="Shadow distance" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/VBoxContainer" unique_id=77928174]
+layout_mode = 2
+tooltip_text = "TT_SHADOW_DISTANCE"
+
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/VBoxContainer/Shadow distance" unique_id=1709497717]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
+text = "LBL_SHADOW_DISTANCE"
+
+[node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/VBoxContainer/Shadow distance" unique_id=1601082578]
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/VBoxContainer/Shadow distance/Slider" unique_id=1635368657]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 75.0
+value = 30.0
+rounded = true
+
+[node name="Control" type="Control" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/VBoxContainer/Shadow distance/Slider" unique_id=2079857763]
+layout_mode = 2
+
+[node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GRAPHICS/VBoxContainer/Shadow distance/Slider" unique_id=1222240864 node_paths=PackedStringArray("Sl")]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78431374, 0.65882355, 0.19607843, 1)
+theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_8um5k")
+text = "99999"
+script = ExtResource("3_8saeu")
+Sl = NodePath("../HSlider")
+
+[node name="TAB_SOUND" type="ScrollContainer" parent="PanelContainer/Options/TabContainer" unique_id=450176240]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_SOUND" unique_id=673685183]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Entity volume" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer" unique_id=1126934914]
+layout_mode = 2
+tooltip_text = "TT_VOL_ENTITY"
+
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/Entity volume" unique_id=361929149]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
+text = "LBL_VOL_ENTITY"
+
+[node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/Entity volume" unique_id=1346715624]
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/Entity volume/Slider" unique_id=1162073513]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -80.0
+max_value = 6.0
+step = 0.5
+
+[node name="Control" type="Control" parent="PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/Entity volume/Slider" unique_id=2132559896]
+layout_mode = 2
+
+[node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/Entity volume/Slider" unique_id=766066435 node_paths=PackedStringArray("Sl")]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78431374, 0.65882355, 0.19607843, 1)
+theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_8um5k")
+text = "99999"
+script = ExtResource("3_8saeu")
+Sl = NodePath("../HSlider")
+
+[node name="Music volume" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer" unique_id=1153932175]
+layout_mode = 2
+tooltip_text = "TT_VOL_MUSIC"
+
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/Music volume" unique_id=2133360577]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
+text = "LBL_VOL_MUSIC"
+
+[node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/Music volume" unique_id=2078051846]
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/Music volume/Slider" unique_id=233728705]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -80.0
+max_value = 6.0
+step = 0.5
+
+[node name="Control" type="Control" parent="PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/Music volume/Slider" unique_id=1091256019]
+layout_mode = 2
+
+[node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/Music volume/Slider" unique_id=2043470797 node_paths=PackedStringArray("Sl")]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78431374, 0.65882355, 0.19607843, 1)
+theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_8um5k")
+text = "99999"
+script = ExtResource("3_8saeu")
+Sl = NodePath("../HSlider")
+
+[node name="SFX volume" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer" unique_id=538169302]
+layout_mode = 2
+tooltip_text = "TT_VOL_SFX"
+
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/SFX volume" unique_id=1161299717]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
+text = "LBL_VOL_SFX"
+
+[node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/SFX volume" unique_id=361718061]
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/SFX volume/Slider" unique_id=1958622566]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -80.0
+max_value = 6.0
+step = 0.5
+
+[node name="Control" type="Control" parent="PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/SFX volume/Slider" unique_id=824757142]
+layout_mode = 2
+
+[node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/SFX volume/Slider" unique_id=257514448 node_paths=PackedStringArray("Sl")]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78431374, 0.65882355, 0.19607843, 1)
+theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_8um5k")
+text = "99999"
+script = ExtResource("3_8saeu")
+Sl = NodePath("../HSlider")
+
+[node name="TAB_CONTROLS" type="ScrollContainer" parent="PanelContainer/Options/TabContainer" unique_id=1572902840]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+metadata/_tab_index = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS" unique_id=672965398]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Mouse sensibility" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/VBoxContainer" unique_id=715289006]
+layout_mode = 2
+tooltip_text = "This affect how fast the camera moves.
+
+Performance impact: None"
+
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/VBoxContainer/Mouse sensibility" unique_id=1433975125]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
+text = "LBL_MOUSESENS"
+
+[node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/VBoxContainer/Mouse sensibility" unique_id=1173527333]
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/VBoxContainer/Mouse sensibility/Slider" unique_id=1277420066]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.1
+max_value = 10.0
+step = 0.1
+value = 1.5
+
+[node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/VBoxContainer/Mouse sensibility/Slider" unique_id=566627232 node_paths=PackedStringArray("Sl")]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78431374, 0.65882355, 0.19607843, 1)
+theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_8um5k")
+text = "99999"
+script = ExtResource("3_8saeu")
+Sl = NodePath("../HSlider")
+
+[node name="TAB_GAME" type="ScrollContainer" parent="PanelContainer/Options/TabContainer" unique_id=706413182]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+metadata/_tab_index = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_GAME" unique_id=1792225301]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Map update time" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_GAME/VBoxContainer" unique_id=2042669863]
+layout_mode = 2
+tooltip_text = "This affects how much the map will update.
+Smaller values will require more CPU, but might reduce frame drops.
+
+Performance impact: Low"
+
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GAME/VBoxContainer/Map update time" unique_id=298324381]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
+text = "LBL_MAP_UPDATE"
+
+[node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_GAME/VBoxContainer/Map update time" unique_id=1036126745]
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="PanelContainer/Options/TabContainer/TAB_GAME/VBoxContainer/Map update time/Slider" unique_id=1484885818]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 5.0
+step = 0.01
+value = 2.0
+
+[node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GAME/VBoxContainer/Map update time/Slider" unique_id=431148799 node_paths=PackedStringArray("Sl")]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78431374, 0.65882355, 0.19607843, 1)
+theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_8um5k")
+text = "99999"
+script = ExtResource("3_8saeu")
+Sl = NodePath("../HSlider")
+
+[node name="Camera quality level" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_GAME/VBoxContainer" unique_id=53233982]
+layout_mode = 2
+tooltip_text = "Resolution of the mobile phone camera.
+
+Lower values will take less storage and tokens when sending to I4.0. Values too low might confuse I4.0.
+All values except \"lossless\" will resize the image to a 1:1 aspect ratio.
+
+Performance impact: None"
+
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GAME/VBoxContainer/Camera quality level" unique_id=1571080673]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
+text = "LBL_CAMQUALITY"
+
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/Options/TabContainer/TAB_GAME/VBoxContainer/Camera quality level" unique_id=320264636]
+layout_mode = 2
+item_count = 7
+popup/item_0/text = "CAMQUALITY_LOSSLESS"
+popup/item_0/id = 0
+popup/item_1/text = "CAMQUALITY_VERYHIGH"
+popup/item_1/id = 1
+popup/item_2/text = "CAMQUALITY_HIGH"
+popup/item_2/id = 2
+popup/item_3/text = "CAMQUALITY_MEDIUM"
+popup/item_3/id = 3
+popup/item_4/text = "CAMQUALITY_LOW"
+popup/item_4/id = 4
+popup/item_5/text = "CAMQUALITY_VERYLOW"
+popup/item_5/id = 5
+popup/item_6/text = "CAMQUALITY_EXTREMELYLOW"
+popup/item_6/id = 6
+
+[node name="Camera compression level" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_GAME/VBoxContainer" unique_id=1643186152]
+layout_mode = 2
+tooltip_text = "File compression of the mobile phone camera.
+
+Higher values will take less storage, but might look bad.
+
+Performance impact: None"
+
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_GAME/VBoxContainer/Camera compression level" unique_id=2140820362]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
+text = "LBL_CAMCOMPRESSION"
+
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/Options/TabContainer/TAB_GAME/VBoxContainer/Camera compression level" unique_id=754846631]
+layout_mode = 2
+item_count = 5
+popup/item_0/text = "CAMCOMPRESSION_NONE"
+popup/item_0/id = 0
+popup/item_1/text = "CAMCOMPRESSION_LOW"
+popup/item_1/id = 1
+popup/item_2/text = "CAMCOMPRESSION_MEDIUM"
+popup/item_2/id = 2
+popup/item_3/text = "CAMCOMPRESSION_HIGH"
+popup/item_3/id = 3
+popup/item_4/text = "CAMCOMPRESSION_VERYHIGH"
+popup/item_4/id = 4
+
+[node name="Save" type="Button" parent="PanelContainer/Options" unique_id=690432085]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
+text = "BTN_SAVE_CONFIG"
+
+[node name="Credits" type="ScrollContainer" parent="PanelContainer" unique_id=1775378985]
+visible = false
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/Credits" unique_id=693973886]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_8um5k")
+bbcode_enabled = true
+text = "[color=#c8a832][b]CREDITS[/b][/color]
+
+673380 076-1 นาย ณภัทร โสดาดง
+673380 309-4 นาย จักรภัทร เอี่ยมเสริม
+673380 358-1 นางสาว เตชินี ถามูลตรี
+673380 354-9 นาย อภิมุข เพียสักขา
+"
+fit_content = true
+
+[connection signal="pressed" from="VBoxContainer/Play" to="Scripts/MainMenu" method="StartGame"]
+[connection signal="pressed" from="VBoxContainer/Options" to="Scripts/MainMenu" method="ToggleConfigWindow" binds= ["options"]]
+[connection signal="pressed" from="VBoxContainer/Credits" to="Scripts/MainMenu" method="ToggleConfigWindow" binds= ["credits"]]
+[connection signal="pressed" from="VBoxContainer/Exit" to="Scripts/MainMenu" method="ExitGame"]
+[connection signal="pressed" from="PanelContainer/Options/Save" to="Scripts/ConfigManager" method="Save"]

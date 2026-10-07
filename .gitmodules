@@ -1,0 +1,4 @@
+[submodule "vendor/I4.0"]
+	path = vendor/I4.0
+	url = https://github.com/TAO71-AI/I4.0-NEW.git
+	branch = master

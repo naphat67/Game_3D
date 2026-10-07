@@ -1,0 +1,8 @@
+[gd_resource type="Theme" format=3 uid="uid://b3i1mafsd72c0"]
+
+[resource]
+Button/font_sizes/font_size = 12
+Label/font_sizes/font_size = 12
+PopupMenu/font_sizes/font_size = 12
+RichTextLabel/font_sizes/normal_font_size = 12
+TextEdit/font_sizes/font_size = 12

@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://p0a57l34k4ke"]
+
+[ext_resource type="Script" uid="uid://bvj88ppwyfhsw" path="res://Scripts/Multiplayer/MultiplayerCharacter.gd" id="1_s4o3v"]
+[ext_resource type="PackedScene" uid="uid://du4qj6k5pomli" path="res://Prefabs/PlayerSkin.tscn" id="1_tkcd7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_io8m4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_s4o3v"]
+height = 1.0
+
+[node name="MultiplayerSkin" type="Node3D" unique_id=1899084581 node_paths=PackedStringArray("NameTag", "StandingElements", "CrouchedElements")]
+script = ExtResource("1_s4o3v")
+NameTag = NodePath("Name tag")
+StandingElements = [NodePath("StandingSkin"), NodePath("StaticBody3D/StandingCollider")]
+CrouchedElements = [NodePath("CrouchedSkin"), NodePath("StaticBody3D/CrouchedCollider")]
+
+[node name="StandingSkin" parent="." unique_id=186075011 instance=ExtResource("1_tkcd7")]
+visible = false
+
+[node name="CrouchedSkin" parent="." unique_id=1569090862 instance=ExtResource("1_tkcd7")]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0)
+visible = false
+
+[node name="Name tag" type="Label3D" parent="." unique_id=973724567]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 2.5, 0)
+text = "NAME"
+font_size = 48
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1751172512]
+
+[node name="StandingCollider" type="CollisionShape3D" parent="StaticBody3D" unique_id=1782511460]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+shape = SubResource("CapsuleShape3D_io8m4")
+
+[node name="CrouchedCollider" type="CollisionShape3D" parent="StaticBody3D" unique_id=210876303]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
+shape = SubResource("CapsuleShape3D_s4o3v")

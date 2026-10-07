@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://doq4uwyc5acgo"]
+
+[ext_resource type="Texture2D" uid="uid://bfp353jnkiobq" path="res://Textures/Level 0 Wall/Color.png" id="1_ucer7"]
+
+[resource]
+albedo_color = Color(0.94509804, 0.9490196, 0.16862746, 1)
+albedo_texture = ExtResource("1_ucer7")
+metallic_specular = 0.1
+uv1_scale = Vector3(1, -1, 1)

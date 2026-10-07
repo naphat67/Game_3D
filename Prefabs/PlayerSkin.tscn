@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://du4qj6k5pomli"]
+
+[ext_resource type="PackedScene" uid="uid://bwlgqmo8ud70n" path="res://Meshes/PlayerSkin/Hazmat_guy.glb" id="1_0qi2x"]
+
+[node name="PlayerSkin" type="Node3D" unique_id=186075011]
+
+[node name="Hazmat_guy" parent="." unique_id=750450782 instance=ExtResource("1_0qi2x")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1, 0)
