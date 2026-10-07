@@ -226,6 +226,9 @@ func _init() -> void:
 	Sounds = Globals.CreateSoundPlayers(true, self)
 
 func _ready() -> void:
+	if (InventoryGUI != null):
+		InventoryGUI.hide()
+	InventoryOpen = false
 	Health = 100
 	SmilerHitsTaken = 0
 	IsDead = false

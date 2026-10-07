@@ -346,7 +346,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="GUI/Inventory/HBoxContainer/Equipment/VBoxContainer" unique_id=1010768085]
 layout_mode = 2
-text = "LBL_EQUIPMENT"
+text = "Equipment"
 
 [node name="MarginContainer" type="MarginContainer" parent="GUI/Inventory/HBoxContainer/Equipment/VBoxContainer" unique_id=346228230]
 layout_mode = 2
@@ -365,7 +365,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="GUI/Inventory/HBoxContainer/Inventory/VBoxContainer" unique_id=406978206]
 layout_mode = 2
-text = "LBL_INVENTORY"
+text = "Inventory"
 
 [node name="MarginContainer" type="MarginContainer" parent="GUI/Inventory/HBoxContainer/Inventory/VBoxContainer" unique_id=2001890753]
 layout_mode = 2
@@ -389,7 +389,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="GUI/Inventory/HBoxContainer/Parameters/VBoxContainer" unique_id=1602467899]
 layout_mode = 2
-text = "LBL_PARAMETERS"
+text = "Parameters"
 
 [node name="MarginContainer" type="MarginContainer" parent="GUI/Inventory/HBoxContainer/Parameters/VBoxContainer" unique_id=2066253057]
 layout_mode = 2

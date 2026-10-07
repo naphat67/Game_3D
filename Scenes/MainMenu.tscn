@@ -451,8 +451,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_m7n2d")
 [node name="Light 1" type="OmniLight3D" parent="Scene/Ceiling/Lights" unique_id=874906251]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.625, -2)
 light_color = Color(1, 0.92156863, 0.8235294, 1)
-light_energy = 2.0
-light_indirect_energy = 2.0
+light_energy = 1.5
+light_indirect_energy = 1.0
 light_volumetric_fog_energy = 2.0
 light_size = 0.615
 shadow_enabled = true
@@ -463,8 +463,8 @@ omni_attenuation = 0.75
 [node name="Light 2" type="OmniLight3D" parent="Scene/Ceiling/Lights" unique_id=532524886]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3.625, -2)
 light_color = Color(1, 0.92156863, 0.8235294, 1)
-light_energy = 2.0
-light_indirect_energy = 2.0
+light_energy = 1.5
+light_indirect_energy = 1.0
 light_volumetric_fog_energy = 2.0
 light_size = 0.615
 shadow_enabled = true
@@ -475,8 +475,8 @@ omni_attenuation = 0.75
 [node name="Light 3" type="OmniLight3D" parent="Scene/Ceiling/Lights" unique_id=222177628]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3.625, 5)
 light_color = Color(1, 0.92156863, 0.8235294, 1)
-light_energy = 2.0
-light_indirect_energy = 2.0
+light_energy = 1.5
+light_indirect_energy = 1.0
 light_volumetric_fog_energy = 2.0
 light_size = 0.615
 shadow_opacity = 0.85
@@ -486,8 +486,8 @@ omni_attenuation = 0.75
 [node name="Light 4" type="OmniLight3D" parent="Scene/Ceiling/Lights" unique_id=621348496]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 3.625, -2)
 light_color = Color(1, 0.92156863, 0.8235294, 1)
-light_energy = 2.0
-light_indirect_energy = 2.0
+light_energy = 1.5
+light_indirect_energy = 1.0
 light_volumetric_fog_energy = 2.0
 light_size = 0.615
 shadow_opacity = 0.85
@@ -497,8 +497,8 @@ omni_attenuation = 0.75
 [node name="Light 5" type="OmniLight3D" parent="Scene/Ceiling/Lights" unique_id=2068690112]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 3.625, 5)
 light_color = Color(1, 0.92156863, 0.8235294, 1)
-light_energy = 2.0
-light_indirect_energy = 2.0
+light_energy = 1.5
+light_indirect_energy = 1.0
 light_volumetric_fog_energy = 2.0
 light_size = 0.615
 shadow_opacity = 0.85
