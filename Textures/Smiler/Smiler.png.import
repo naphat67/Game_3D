@@ -3,11 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://do5ca0pxlxehw"
-path.s3tc="res://.godot/imported/Smiler.png-cf9b748d6d829880cc9f6bbf20a332b9.s3tc.ctex"
-path.etc2="res://.godot/imported/Smiler.png-cf9b748d6d829880cc9f6bbf20a332b9.etc2.ctex"
+path="res://.godot/imported/Smiler.png-cf9b748d6d829880cc9f6bbf20a332b9.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "862e3c68533b8c8a38048a13da68b157"
@@ -16,13 +14,13 @@ generator_parameters={
 [deps]
 
 source_file="res://Textures/Smiler/Smiler.png"
-dest_files=["res://.godot/imported/Smiler.png-cf9b748d6d829880cc9f6bbf20a332b9.s3tc.ctex", "res://.godot/imported/Smiler.png-cf9b748d6d829880cc9f6bbf20a332b9.etc2.ctex"]
+dest_files=["res://.godot/imported/Smiler.png-cf9b748d6d829880cc9f6bbf20a332b9.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
-compress/lossy_quality=0.7
+compress/lossy_quality=1.0
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1

@@ -974,40 +974,11 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_8um5k")
 bbcode_enabled = true
-text = "[color=#c8a832][b]3D models[/b][/color]
-- Level keys (modified) ([url=https://sketchfab.com/3d-models/key-ad78fc71092849ca9cd2f264e14a8167]Sketchfab[/url]) by [i]Mr NISHKE[/i].
-- CRT monitor ([url=https://sketchfab.com/3d-models/crt-monitor-e2dd2887a8904e4fa3d5a32e2935adb9]Sketchfab[/url]) by [i]James.Harness[/i].
-- Hazmat guy (modified) ([url=https://sketchfab.com/3d-models/hazmat-suit-explorer-a4d3f69280f04389a86cd3c073e18f38]Sketchfab[/url]) by [i]antuamgamer0503[/i].
-- Other 3D models made by [color=#c8a832][i]Alcoft[/i][/color] and [color=#c8a832][i]Zetta713[/i][/color].
-
-[color=#c8a832][b]Textures and images[/b][/color]
-- Mostly from [url=https://ambientcg.com/]AmbientCG[/url].
-- Level 4 HDRI ([url=https://polyhaven.com/a/overcast_soil_puresky]Poly Haven[/url]) by [i]Jarod Guest[/i] and [i]Sergej Majboroda[/i].
-- Noise maps made by [color=#c8a832][i]Alcoft[/i][/color].
-- Smiler made by [color=#58c23f][url=https://www.youtube.com/@DinLadyCartoon][i]Dinolt[/i][/url][/color].
-- Other textures and images made by [color=#c8a832][i]Alcoft[/i][/color].
-
-[color=#c8a832][b]Audio[/b][/color]
-- Whistles by [color=#c8a832][i]Zetta713[/i][/color] and [color=#c8a832][i]Alcoft[/i][/color].
-
-[color=#c8a832][b]Scripts[/b][/color]
-- All code made by [color=#c8a832][i]Alcoft[/i][/color].
-
-[color=#c8a832][b]Video[/b][/color]
-- Main menu video (render) made by [color=#c8a832][i]Zetta713[/i][/color].
-
-[color=#c8a832][b]Tools used[/b][/color]
-- Godot (Game Engine)
-- Blender (3D models)
-- GIMP (Texture creation)
-- [url=https://github.com/V-Sekai/godot-vrm]Godot VRM (Godot Addon)[/url]
-
-[color=#c8a832][b]Game team[/b][/color]
+text = "[color=#c8a832][b]Game Team[/b][/color]
 673380 076-1 นาย ณภัทร โสดาดง
 673380 309-4 นาย จักรภัทร เอี่ยมเสริม
 673380 358-1 นางสาว เตชินี ถามูลตรี
 673380 354-9 นาย อภิมุข เพียสักขา
-
 "
 fit_content = true
 

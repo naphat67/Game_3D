@@ -223,8 +223,8 @@ func SpawnPlayer() -> void:
 
 func _ready() -> void:
 	if (OS.has_feature("web")):
-		Globals.Instance.ViewDistance = mini(Globals.Instance.ViewDistance, 5)
-		Globals.Instance.ShadowViewDistance = mini(Globals.Instance.ShadowViewDistance, 5)
+		Globals.Instance.ViewDistance = 7
+		Globals.Instance.ShadowViewDistance = mini(Globals.Instance.ShadowViewDistance, 7)
 	
 	FNL.noise_type = FastNoiseLite.TYPE_PERLIN
 	FNL.frequency = 0.02

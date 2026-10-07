@@ -3,6 +3,7 @@ extends EntityAI
 @export var Player: CharacterMovement = null
 
 const MIN_SPAWN_DISTANCE: float = 30.0
+const MAX_SPAWN_DISTANCE: float = 34.0
 const NOTICE_DISTANCE: float = 20.0
 const ATTACK_DISTANCE: float = 1.2
 const ATTACK_PAUSE: float = 5.0
@@ -24,20 +25,29 @@ func _ready() -> void:
 		await get_tree().process_frame
 	if (!is_inside_tree()):
 		return
+	await get_tree().physics_frame
+	if (!is_inside_tree()):
+		return
 	SpawnAwayFromPlayer()
 	ChooseWanderDirection()
 
 func SpawnAwayFromPlayer() -> void:
 	var origin = Player.global_position
-	var chosen_position = origin + Vector3(MIN_SPAWN_DISTANCE, 0, 0)
+	var chosen_position = Vector3(INF, -100.0, INF)
 	for attempt in range(64):
 		var angle = RNG.randf_range(0.0, TAU)
-		var distance = RNG.randf_range(MIN_SPAWN_DISTANCE, MIN_SPAWN_DISTANCE + 25.0)
+		var distance = RNG.randf_range(MIN_SPAWN_DISTANCE, MAX_SPAWN_DISTANCE)
 		var candidate = origin + Vector3(cos(angle) * distance, 0, sin(angle) * distance)
 		var floor_hit = _find_floor(candidate)
 		if (!floor_hit.is_empty()):
 			chosen_position = floor_hit.position + Vector3.UP * 0.15
 			break
+	if (chosen_position.y < -50.0):
+		push_warning("Could not find floor for Smiler spawn; retrying after world generation.")
+		await get_tree().create_timer(1.0).timeout
+		if (is_inside_tree()):
+			SpawnAwayFromPlayer()
+		return
 	global_position = chosen_position
 
 func _find_floor(point: Vector3) -> Dictionary:
