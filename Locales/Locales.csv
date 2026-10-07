@@ -37,39 +37,7 @@ CAMCOMPRESSION_LOW,Low (20%),Baja (20%),,,
 CAMCOMPRESSION_MEDIUM,Medium (50%),Media (50%),,,
 CAMCOMPRESSION_HIGH,High (80%),Alta (80%),,,
 CAMCOMPRESSION_VERYHIGH,Very high (100%),Muy alta (100%),,,
-TAB_MULTIPLAYER,Multiplayer,Multijugador,,,
-LBL_MULTIPLAYER_SERVER,Multiplayer server,Servidor del multijugador,,,
-TT_LBL_MULTIPLAYER_SERVER,"Server to connect to in the multiplayer.
-
-Performance impact: None",-,,,
-LBL_USERNAME,Username,Nombre de usuario,,,
-TT_LBL_USERNAME,"Username for the multiplayer.
-
-Make sure it’s unique and nobody is connected with the same username. Must not be empty nor larger than 15 characters.
-
-Performance impact: None",-,,,
-LBL_PASSWORD,Password,Contraseña,,,
-TT_LBL_PASSWORD,"Password for the multiplayer.
-
-If the combination of username and password doesn’t exist in the server, a new account will be created. If the username is stored in the server, but the password incorrect, it will not log in.
-
-Must not be empty, at least 8 characters, and not larger than 60 characters.
-
-Performance impact: None",-,,,
-LBL_MULTIPLAYER_SYNC,Multiplayer sync time,Tiempo de sincronización del multijugador,,,
-TT_LBL_MULTIPLAYER_SYNC,"Velocity when the multiplayer will be updated. If 0, it will update for each frame.
-Smaller values might require a better internet connection, but will look more smooth.
-
-Performance impact: None",,,,
-TAB_I40,I4_0,I4_0,,,
-LBL_I4.0_NOCONFIG,No I4.0 configuration yet.,No hay configuración de I4.0 aún.,,,
-TT_BTN_PLAY,"NOTE:
-This game is still in development. Since most levels doesn’t have any exits yet, this will take you to The Hub (level selector).
-
-Make sure your multiplayer username and password are correct and that nobody is connected as the same user. The game might crash if there is a multiplayer error.","NOTA:
-Este juego sigue en desarrollo. Ya que la mayoría de niveles no tienen ninguna salida todavía, estas te llevarán a The Hub (el selector de niveles).
-
-Asegúrate de que tu nombre de usuario y contraseña en el modo multijugador sean correctos y que nadie esté conectado con tu mismo usuario. El juego podría crashear si hay algún error en el modo multijugador.",,,
+TT_BTN_PLAY,"Start the single-player Level 0 game.","Inicia el juego individual de Level 0.",,,
 BTN_SAVE_CONFIG,Save,Guardar,,,
 LBL_SHADOW_DISTANCE,Shadow view distance,Distancia de visión de las sombras,,,
 PLACEHOLDER_PROMPT,Write your prompt here,Escribe tu petición aquí,,,

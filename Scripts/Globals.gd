@@ -15,13 +15,9 @@ var ShadowViewDistance: int = 10
 # ====================
 #        SOUND
 # ====================
-var Sound_Master: float = 0
 var Sound_Entity: float = 0
 var Sound_Music: float = 0
 var Sound_SFX: float = 0
-var Sound_Player_Voice: float = 0
-var Sound_Player_SFX: float = 0
-var Sound_Players: Dictionary[String, Dictionary] = {}
 
 # ====================
 #       CONTROLS
@@ -34,21 +30,6 @@ var Sensibility: float = 1.5
 var GenerationTime: float = 2
 var CameraQualityLevel: int = 1
 var CameraSaveCompressionLevel: int = 1
-
-# ====================
-#     MULTIPLAYER
-# ====================
-
-var Multiplayer_Host: String = "main.tao71.org"
-var Multiplayer_Port: int = 65287
-var Multiplayer_UpdateTime: float = 0
-
-# ====================
-#       ACCOUNT
-# ====================
-
-var User_Username: String = "Player"
-var User_Password: String = ""
 
 # ====================
 #         I4.0
@@ -107,16 +88,16 @@ static func GetAllChildren(Obj: Node, FilterGroups: Array[StringName] = [], Filt
 	
 	for child in Obj.get_children():
 		var continuee = typeof(child) in FilterTypes
-		
+
 		if (!continuee):
 			for group in FilterGroups:
 				if (group in child.get_groups()):
 					continuee = true
 					break
-		
+
 		if (continuee):
 			continue
-		
+
 		children.append(child)
 		children.append_array(GetAllChildren(child))
 	
@@ -124,13 +105,13 @@ static func GetAllChildren(Obj: Node, FilterGroups: Array[StringName] = [], Filt
 
 static func __load_config_parser__(Ins: Variant, D: Dictionary) -> void:
 	for paramName in D.keys():
+		if (paramName not in Ins):
+			continue
+
 		var paramValue = D[paramName]
-		
+
 		if (typeof(paramValue) == TYPE_DICTIONARY):
-			if (paramName in Ins):
-				__load_config_parser__(Ins.get(paramName), paramValue)
-			else:
-				Ins.set(paramName, paramValue)
+			__load_config_parser__(Ins.get(paramName), paramValue)
 		else:
 			Ins.set(paramName, paramValue)
 
@@ -144,7 +125,7 @@ static func LoadConfig(ConfigPath: String = "user://config.json", SetGlobal: boo
 	if (!FileAccess.file_exists(ConfigPath)):
 		push_warning("Config does not exist. Creating.")
 		instance.SaveConfig(ConfigPath)
-		
+
 		return instance
 	
 	var file = FileAccess.open(ConfigPath, FileAccess.READ)
@@ -182,7 +163,7 @@ func SaveConfig(ConfigPath: String = "user://config.json") -> Dictionary:
 	for prop in properties:
 		var propName = prop["name"]
 		var propValue = get(propName)
-		
+
 		json[propName] = propValue
 	
 	json = __save_config_parser__()

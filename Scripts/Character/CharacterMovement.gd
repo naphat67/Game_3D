@@ -74,10 +74,6 @@ var EntityHits: int = 0
 var IsDead: bool = false
 const LIGHT_BALL_PROJECTILE: PackedScene = preload("res://Prefabs/LightBallProjectile.tscn")
 
-func ChangeLevel(Level: PackedScene) -> void:
-	Globals.LevelToLoad = Level.resource_path
-	get_tree().change_scene_to_file.call_deferred("res://Scenes/LevelLoader.tscn")
-
 func __cast_ray__(From: Vector3, Direction: Vector3, Length: float) -> CollisionObject3D:
 	var hit = get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(
 		From,
