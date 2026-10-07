@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="BackroomsWithI4.0"
+config/name="WhiteroomWithI4.0"
 config/version="0.2.0"
 run/main_scene="uid://upk3pgwp2pnb"
 config/features=PackedStringArray("4.7", "GL Compatibility")
@@ -19,9 +19,10 @@ config/icon="uid://cyemyoma11115"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/stretch/mode="canvas_items"
+window/stretch/aspect="keep"
 
 [editor_plugins]
 
@@ -109,3 +110,4 @@ locale/translations=PackedStringArray("res://Locales/Locales.en.translation", "r
 rendering_device/driver.windows="opengl3"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+anti_aliasing/quality/msaa_3d=2

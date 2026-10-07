@@ -18,7 +18,7 @@ const TOOLS = {
 		"required_arguments": ["keywords"]
 	},
 	#"search_internet": {
-	#	"description": "Searches for content in wikis about the Whiterooms on internet.",
+	#	"description": "Searches for content in wikis about the Whiteroom on internet.",
 	#	"arguments": {
 	#		"keywords": {
 	#			"type": "string",
@@ -37,7 +37,7 @@ const LOCAL_DB_EXPECTED_VERSION = "18072026_1"
 const LOCAL_DB_ZIP = "res://Scripts/I4.0/LocalDatabase.zip"
 const SEARCH_WIKIS = [
 	# IMPORTANT: Only `fandom.com` wikis are supported
-	"https://whiterooms.fandom.com/wiki/Special:Search?scope=internal&query=%s",
+	"https://whiteroom.fandom.com/wiki/Special:Search?scope=internal&query=%s",
 ]
 
 static func ParseTool(ToolName: String, ToolData: Dictionary) -> Dictionary:

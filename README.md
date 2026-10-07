@@ -1,6 +1,6 @@
-# Backrooms: Level 0
+# Whiteroom: Level 0
 
-A single-player Backrooms game made with Godot 4.7. This build focuses on Level 0, a Smiler encounter, and collectible light balls.
+A single-player Whiteroom game made with Godot 4.7. This build focuses on Level 0, a Smiler encounter, and collectible light balls.
 
 ## Play in a browser
 

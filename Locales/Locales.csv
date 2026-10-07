@@ -49,9 +49,9 @@ TOOL_SEARCH_TXT,Tool: Internet: Text search,Herramienta: Internet: Búsqueda de 
 TOOL_SEARCH_IMG, Tool: Internet: Image search,Herramienta: Internet: Búsqueda de imagen,,,
 TT_BTN_I4.0_UTILITIES,"Utilities
 
-(Internet search tools allows I4.0 to search over the Backrooms wikis and extract the text/images)","Utilidades
+(Internet search tools allows I4.0 to search over the Whiteroom wikis and extract the text/images)","Utilidades
 
-(Herramientas de búsqueda en internet le permiten a I4.0 buscar y extraer texto/imágenes en las wikis de los Backrooms)",,,
+(Herramientas de búsqueda en internet le permiten a I4.0 buscar y extraer texto/imágenes en las wikis de los Whiteroom)",,,
 MSG_ATTACH_FILES_ERROR,"Could not attach files because of an internal error.","No se han podido adjuntar los archivos debido a un error interno.",,,
 LBL_VOL_MASTER,Master volume,Volumen global,,,
 LBL_VOL_ENTITY,Entity volume,Volumen de entidades,,,
