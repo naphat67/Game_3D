@@ -85,6 +85,9 @@ TT_BTN_I4.0_UTILITIES,"Utilities
 
 (Herramientas de búsqueda en internet le permiten a I4.0 buscar y extraer texto/imágenes en las wikis de los Whiterooms)",,,
 MSG_ATTACH_FILES_ERROR,"Could not attach files because of an internal error.","No se han podido adjuntar los archivos debido a un error interno.",,,
+LBL_EQUIPMENT,Equipment,Equipo,,,
+LBL_INVENTORY,Inventory,Inventario,,,
+LBL_PARAMETERS,Parameters,Parámetros,,,
 LBL_VOL_MASTER,Master volume,Volumen global,,,
 LBL_VOL_ENTITY,Entity volume,Volumen de entidades,,,
 LBL_VOL_MUSIC,Music and ambience volume,Volumen de música y ambiente,,,
