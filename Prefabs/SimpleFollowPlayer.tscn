@@ -3,27 +3,8 @@
 [ext_resource type="Script" uid="uid://b47nsqkdjiwgb" path="res://Scripts/Entities/SimpleFollowPlayer.gd" id="1_ai"]
 [ext_resource type="Texture2D" uid="uid://do5ca0pxlxehw" path="res://Textures/Smiler/Smiler.png" id="2_smiler"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_body"]
-radius = 0.72
-height = 1.65
-
-[sub_resource type="StandardMaterial3D" id="Material_body"]
-shading_mode = 0
-albedo_color = Color(0.003, 0.003, 0.008, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_eye"]
-radius = 0.13
-height = 0.26
-
 [sub_resource type="QuadMesh" id="QuadMesh_smiler_face"]
-size = Vector2(1.8, 1.1)
-
-[sub_resource type="StandardMaterial3D" id="Material_eye"]
-shading_mode = 0
-albedo_color = Color(1, 0.06, 0.025, 1)
-emission_enabled = true
-emission = Color(1, 0.02, 0.005, 1)
-emission_energy_multiplier = 3.0
+size = Vector2(2.0, 1.3)
 
 [sub_resource type="StandardMaterial3D" id="Material_smiler_face"]
 transparency = 1
@@ -31,7 +12,7 @@ shading_mode = 0
 albedo_texture = ExtResource("2_smiler")
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 1.5
+emission_energy_multiplier = 3.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape_entity"]
 radius = 0.58
@@ -42,25 +23,22 @@ collision_layer = 2
 collision_mask = 1
 script = ExtResource("1_ai")
 
-[node name="Body" type="MeshInstance3D" parent="."]
-position = Vector3(0, 0.82, 0)
-mesh = SubResource("SphereMesh_body")
-surface_material_override/0 = SubResource("Material_body")
-
-[node name="EyeLeft" type="MeshInstance3D" parent="."]
-position = Vector3(-0.22, 1.13, -0.57)
-mesh = SubResource("SphereMesh_eye")
-surface_material_override/0 = SubResource("Material_eye")
-
-[node name="EyeRight" type="MeshInstance3D" parent="."]
-position = Vector3(0.22, 1.13, -0.57)
-mesh = SubResource("SphereMesh_eye")
-surface_material_override/0 = SubResource("Material_eye")
-
-[node name="SmilerFace" type="MeshInstance3D" parent="."]
-position = Vector3(0, 1.35, -0.8)
+[node name="SmilerFaceFront" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.25, -0.06)
 mesh = SubResource("QuadMesh_smiler_face")
 surface_material_override/0 = SubResource("Material_smiler_face")
+
+[node name="SmilerFaceBack" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.25, 0.06)
+rotation = Vector3(0, 3.1415927, 0)
+mesh = SubResource("QuadMesh_smiler_face")
+surface_material_override/0 = SubResource("Material_smiler_face")
+
+[node name="FaceGlow" type="OmniLight3D" parent="."]
+position = Vector3(0, 1.25, 0)
+light_color = Color(0.9, 0.95, 1, 1)
+light_energy = 1.5
+omni_range = 5.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 position = Vector3(0, 0.8, 0)
