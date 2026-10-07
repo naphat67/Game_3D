@@ -7,7 +7,6 @@ enum WorldGenStatus
 	GENERATING_CHUNKS = 2
 }
 
-var MULTIPLAYER_PLAYER_SKIN: PackedScene = load("res://Prefabs/MultiplayerSkin.tscn")
 
 @export_category("Chunk options")
 @export var DisabledChunkPositions: Array[WorldGen_DisabledChunkPosition] = []
@@ -36,15 +35,12 @@ var LoadedMaps: Dictionary[int, Texture2D] = {}
 var PlayerSpawns: Array[Vector3] = []
 @export var PlayerDieFalling: bool = false
 @export var PlayerDieFallingDistance: float = 100
-var SpawnedMultiplayerPlayers: Dictionary[String, MultiplayerCharacter] = {}
 
 @export_category("Other options")
-@export var Multiplayer: bool = true
 var Generate: bool = false
 var GenerationCompleted: bool = true
 var RNG: RandomNumberGenerator = RandomNumberGenerator.new()
 var FNL: FastNoiseLite = FastNoiseLite.new()
-var MUL: MultiplayerConnection = null
 
 func SetSeed(Seed: int) -> void:
 	RNG.seed = Seed
@@ -225,78 +221,10 @@ func SpawnPlayer() -> void:
 	Player.global_position = spawnPos + PlayerSpawnOffset
 	Player.Spawned = true
 
-func UpdateMultiplayer() -> void:
-	if (!Multiplayer):
-		return
-	
-	Player.UpdateMultiplayer()
-	await MUL.SetCurrentLevel(LevelName)
-	
-	var players = await MUL.GetAllPlayers()
-	
-	for sp in SpawnedMultiplayerPlayers.keys():
-		var usernameFound = false
-		
-		for p in players:
-			if (p["Username"] == sp):
-				usernameFound = true
-				break
-		
-		if (!usernameFound):
-			SpawnedMultiplayerPlayers[sp].queue_free()
-			SpawnedMultiplayerPlayers.erase(sp)
-	
-	for p in players:
-		if (p["Username"] == Globals.Instance.User_Username || p["CurrentLevel"] != LevelName):
-			continue
-		
-		if (p["Username"] not in SpawnedMultiplayerPlayers):
-			var playerNodeInWorld: MultiplayerCharacter = MULTIPLAYER_PLAYER_SKIN.instantiate()
-			add_child(playerNodeInWorld)
-			
-			p["NodeInWorld"] = playerNodeInWorld
-			SpawnedMultiplayerPlayers[p["Username"]] = playerNodeInWorld
-		
-		SpawnedMultiplayerPlayers[p["Username"]].global_position = Vector3(
-			p["Position"][0],
-			p["Position"][1],
-			p["Position"][2]
-		)
-		SpawnedMultiplayerPlayers[p["Username"]].global_rotation = Vector3(
-			p["Rotation"][0],
-			p["Rotation"][1],
-			p["Rotation"][2]
-		)
-		SpawnedMultiplayerPlayers[p["Username"]].scale = Vector3(
-			p["Scale"][0],
-			p["Scale"][1],
-			p["Scale"][2]
-		)
-		SpawnedMultiplayerPlayers[p["Username"]].SetCrouched(p["Crouched"])
-		SpawnedMultiplayerPlayers[p["Username"]].SetNameTag(p["Username"])
-		SpawnedMultiplayerPlayers[p["Username"]].UpdateParameters()
-		
-		for sound in p["Sounds"]:
-			var soundStream = Globals.ParseSound(sound)
-			
-			if (soundStream[1] == null):
-				continue
-			
-			SpawnedMultiplayerPlayers[p["Username"]].PlaySound(soundStream[0], soundStream[1])
-
 func _ready() -> void:
-	# Keep the web build responsive while generating the initial chunk ring.
 	if (OS.has_feature("web")):
 		Globals.Instance.ViewDistance = mini(Globals.Instance.ViewDistance, 5)
 		Globals.Instance.ShadowViewDistance = mini(Globals.Instance.ShadowViewDistance, 5)
-
-	if (MUL == null):
-		MUL = MultiplayerConnection.new()
-		MUL.name = "Multiplayer"
-		
-		add_child(MUL)
-	
-	Player.MUL = MUL
 	
 	FNL.noise_type = FastNoiseLite.TYPE_PERLIN
 	FNL.frequency = 0.02
@@ -320,43 +248,9 @@ func _ready() -> void:
 	
 	Player.process_mode = Node.PROCESS_MODE_DISABLED
 	
-	if (!Multiplayer && !Generate):
+	if (!Generate):
 		SetSeed(randi())
 		Generate = true
-	elif (Multiplayer):
-		if (LevelName not in MultiplayerConnection.VisitedLevels):
-			MultiplayerConnection.VisitedLevels.append(LevelName)
-		if (!MUL.IsConnected()):
-			await MUL.AutoConnect(Globals.Instance.Multiplayer_Host, Globals.Instance.Multiplayer_Port)
-		
-		var isAuthorized = await MUL.IsAuthorized(false)
-		
-		if (!isAuthorized):
-			isAuthorized = await MUL.Login(Globals.Instance.User_Username, Globals.Instance.User_Password, false)
-		
-		if (isAuthorized):
-			Generate = true
-			
-			var levelsData = await MUL.GetLevelsData(false)
-			var levelFound = false
-			
-			for level in levelsData:
-				if (level["Name"] == LevelName):
-					levelFound = true
-					
-					if (level["NoiseMaps"] != null):
-						pass  # TODO: Download noise maps from server and set
-					
-					SetSeed(level["Seed"])
-					# TODO: Set chunks disabled IDs
-			
-			if (!levelFound):
-				push_error("Level NOT found in server. Setting random seed.")
-				SetSeed(randi())
-		else:
-			print("NOT LOGGED IN.")
-			pass  # TODO: Error when logging in (probably incorrect credentials)
-	
 	if (Generate):
 		var hasMaps = Maps.size() > 0
 		
@@ -375,18 +269,6 @@ func _ready() -> void:
 	genTimer.timeout.connect(UpdateChunks)
 	add_child(genTimer)
 	
-	if (Globals.Instance.Multiplayer_UpdateTime >= 0.1):
-		var multiplayerTimer = Timer.new()
-		multiplayerTimer.autostart = true
-		multiplayerTimer.one_shot = false
-		multiplayerTimer.wait_time = clampf(Globals.Instance.Multiplayer_UpdateTime, 0.05, 1)
-		multiplayerTimer.timeout.connect(UpdateMultiplayer)
-		add_child(multiplayerTimer)
-
-func _process(_Delta: float) -> void:
-	if (Globals.Instance.Multiplayer_UpdateTime < 0.05):
-		await UpdateMultiplayer()
-
 func _physics_process(_Delta: float) -> void:
 	if (PlayerDieFalling && Player.position.y <= -PlayerDieFallingDistance):
 		Player.Die()

@@ -39,12 +39,10 @@ func ExitGame() -> void:
 	get_tree().quit()
 
 func _ready() -> void:
-	var tab_container: TabContainer = OptionsGUI.get_node("TabContainer")
-	for tab_index in range(tab_container.get_tab_count()):
-		var tab: Node = tab_container.get_child(tab_index)
-		if tab.name in ["TAB_GRAPHICS", "TAB_GAME"]:
-			tab_container.set_tab_hidden(tab_index, true)
-
+	var tabs: TabContainer = OptionsGUI.get_node("TabContainer")
+	for index in range(tabs.get_tab_count()):
+		if (tabs.get_child(index).name in ["TAB_GRAPHICS", "TAB_GAME", "TAB_MULTIPLAYER", "TAB_I40"]):
+			tabs.set_tab_hidden(index, true)
 	CreditsLBL.meta_clicked.connect(func(URL: String):
 		OS.shell_open(str(URL))
 	)

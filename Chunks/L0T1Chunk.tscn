@@ -10,11 +10,11 @@
 [ext_resource type="ArrayMesh" uid="uid://dsq3hstcbl4df" path="res://Meshes/OptimizedSmallPillar.obj" id="8_ksysk"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ywtkj"]
-size = Vector2(15, 15)
+size = Vector2(10, 10)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ifqt8"]
 flip_faces = true
-size = Vector2(15, 15)
+size = Vector2(10, 10)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dpuev"]
 metallic_specular = 0.0
@@ -27,7 +27,7 @@ size = Vector2(1.2, 1.2)
 orientation = 1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dpuev"]
-size = Vector3(15, 0, 15)
+size = Vector3(10, 0, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7a0nq"]
 size = Vector3(2, 5, 2)
@@ -40,28 +40,28 @@ script = ExtResource("1_nprm1")
 ChunkScripts = [NodePath("FrontWall"), NodePath("BackWall"), NodePath("LeftWall"), NodePath("RightWall"), NodePath("OptimizedPillar"), NodePath("OptimizedSmallPillar")]
 
 [node name="FrontWall" parent="." unique_id=2083741031 node_paths=PackedStringArray("ObjectsToDeactivate") instance=ExtResource("2_wb14u")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 7.25)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 4.75)
 script = ExtResource("3_860ss")
 ObjectsToDeactivate = [NodePath(".")]
 Invert = true
 Probability = 0.1
 
 [node name="BackWall" parent="." unique_id=170359967 node_paths=PackedStringArray("ObjectsToDeactivate") instance=ExtResource("2_wb14u")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.001, 0, -7.252)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.001, 0, -4.752)
 script = ExtResource("3_860ss")
 ObjectsToDeactivate = [NodePath(".")]
 Invert = true
 Probability = 0.1
 
 [node name="LeftWall" parent="." unique_id=402103639 node_paths=PackedStringArray("ObjectsToDeactivate") instance=ExtResource("2_wb14u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.25, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75, 0, 0)
 script = ExtResource("3_860ss")
 ObjectsToDeactivate = [NodePath(".")]
 Invert = true
 Probability = 0.1
 
 [node name="RightWall" parent="." unique_id=2008620529 node_paths=PackedStringArray("ObjectsToDeactivate") instance=ExtResource("2_wb14u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.25, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.75, 0, 0)
 script = ExtResource("3_860ss")
 ObjectsToDeactivate = [NodePath(".")]
 Invert = true
@@ -89,12 +89,12 @@ mesh = SubResource("QuadMesh_ia6io")
 [node name="OmniLight3D" type="OmniLight3D" parent="Lights/Light" unique_id=2075153493]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 light_color = Color(1, 0.92156863, 0, 1)
-light_energy = 6.0
-light_indirect_energy = 1.4
-light_volumetric_fog_energy = 0.8
+light_energy = 4.0
+light_indirect_energy = 4.0
+light_volumetric_fog_energy = 4.0
 light_size = 0.6
 distance_fade_begin = 60.0
-omni_range = 24.0
+omni_range = 12.0
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1832283621]
 

@@ -451,8 +451,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_m7n2d")
 [node name="Light 1" type="OmniLight3D" parent="Scene/Ceiling/Lights" unique_id=874906251]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3.625, -2)
 light_color = Color(1, 0.92156863, 0.8235294, 1)
-light_energy = 1.5
-light_indirect_energy = 1.0
+light_energy = 2.0
+light_indirect_energy = 2.0
 light_volumetric_fog_energy = 2.0
 light_size = 0.615
 shadow_enabled = true
@@ -463,8 +463,8 @@ omni_attenuation = 0.75
 [node name="Light 2" type="OmniLight3D" parent="Scene/Ceiling/Lights" unique_id=532524886]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3.625, -2)
 light_color = Color(1, 0.92156863, 0.8235294, 1)
-light_energy = 1.5
-light_indirect_energy = 1.0
+light_energy = 2.0
+light_indirect_energy = 2.0
 light_volumetric_fog_energy = 2.0
 light_size = 0.615
 shadow_enabled = true
@@ -475,8 +475,8 @@ omni_attenuation = 0.75
 [node name="Light 3" type="OmniLight3D" parent="Scene/Ceiling/Lights" unique_id=222177628]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3.625, 5)
 light_color = Color(1, 0.92156863, 0.8235294, 1)
-light_energy = 1.5
-light_indirect_energy = 1.0
+light_energy = 2.0
+light_indirect_energy = 2.0
 light_volumetric_fog_energy = 2.0
 light_size = 0.615
 shadow_opacity = 0.85
@@ -486,8 +486,8 @@ omni_attenuation = 0.75
 [node name="Light 4" type="OmniLight3D" parent="Scene/Ceiling/Lights" unique_id=621348496]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 3.625, -2)
 light_color = Color(1, 0.92156863, 0.8235294, 1)
-light_energy = 1.5
-light_indirect_energy = 1.0
+light_energy = 2.0
+light_indirect_energy = 2.0
 light_volumetric_fog_energy = 2.0
 light_size = 0.615
 shadow_opacity = 0.85
@@ -497,8 +497,8 @@ omni_attenuation = 0.75
 [node name="Light 5" type="OmniLight3D" parent="Scene/Ceiling/Lights" unique_id=2068690112]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 3.625, 5)
 light_color = Color(1, 0.92156863, 0.8235294, 1)
-light_energy = 1.5
-light_indirect_energy = 1.0
+light_energy = 2.0
+light_indirect_energy = 2.0
 light_volumetric_fog_energy = 2.0
 light_size = 0.615
 shadow_opacity = 0.85
@@ -568,9 +568,7 @@ metadata/_edit_use_anchors_ = true
 [node name="Play" type="Button" parent="VBoxContainer" unique_id=674639238]
 layout_mode = 2
 tooltip_text = "NOTE:
-This build contains Level 0 only. Press Play to enter Level 0 directly.
-
-Make sure your multiplayer username and password are correct and that nobody is connected as the same user. The game might crash if there is a multiplayer error."
+Play starts the single player Level 0 experience."
 theme_override_fonts/font = ExtResource("4_df05h")
 text = "BTN_PLAY"
 autowrap_mode = 3
@@ -944,6 +942,23 @@ popup/item_3/id = 3
 popup/item_4/text = "CAMCOMPRESSION_VERYHIGH"
 popup/item_4/id = 4
 
+[node name="TAB_I40" type="ScrollContainer" parent="PanelContainer/Options/TabContainer" unique_id=84539653]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+metadata/_tab_index = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_I40" unique_id=2074744419]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_I40/VBoxContainer" unique_id=2087109437]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
+text = "LBL_I4.0_NOCONFIG"
+
 [node name="Save" type="Button" parent="PanelContainer/Options" unique_id=690432085]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_df05h")
@@ -959,12 +974,40 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_8um5k")
 bbcode_enabled = true
-text = "[color=#c8a832][b]CREDITS[/b][/color]
+text = "[color=#c8a832][b]3D models[/b][/color]
+- Level keys (modified) ([url=https://sketchfab.com/3d-models/key-ad78fc71092849ca9cd2f264e14a8167]Sketchfab[/url]) by [i]Mr NISHKE[/i].
+- CRT monitor ([url=https://sketchfab.com/3d-models/crt-monitor-e2dd2887a8904e4fa3d5a32e2935adb9]Sketchfab[/url]) by [i]James.Harness[/i].
+- Hazmat guy (modified) ([url=https://sketchfab.com/3d-models/hazmat-suit-explorer-a4d3f69280f04389a86cd3c073e18f38]Sketchfab[/url]) by [i]antuamgamer0503[/i].
+- Other 3D models made by [color=#c8a832][i]Alcoft[/i][/color] and [color=#c8a832][i]Zetta713[/i][/color].
 
+[color=#c8a832][b]Textures and images[/b][/color]
+- Mostly from [url=https://ambientcg.com/]AmbientCG[/url].
+- Level 4 HDRI ([url=https://polyhaven.com/a/overcast_soil_puresky]Poly Haven[/url]) by [i]Jarod Guest[/i] and [i]Sergej Majboroda[/i].
+- Noise maps made by [color=#c8a832][i]Alcoft[/i][/color].
+- Smiler made by [color=#58c23f][url=https://www.youtube.com/@DinLadyCartoon][i]Dinolt[/i][/url][/color].
+- Other textures and images made by [color=#c8a832][i]Alcoft[/i][/color].
+
+[color=#c8a832][b]Audio[/b][/color]
+- Whistles by [color=#c8a832][i]Zetta713[/i][/color] and [color=#c8a832][i]Alcoft[/i][/color].
+
+[color=#c8a832][b]Scripts[/b][/color]
+- All code made by [color=#c8a832][i]Alcoft[/i][/color].
+
+[color=#c8a832][b]Video[/b][/color]
+- Main menu video (render) made by [color=#c8a832][i]Zetta713[/i][/color].
+
+[color=#c8a832][b]Tools used[/b][/color]
+- Godot (Game Engine)
+- Blender (3D models)
+- GIMP (Texture creation)
+- [url=https://github.com/V-Sekai/godot-vrm]Godot VRM (Godot Addon)[/url]
+
+[color=#c8a832][b]Game team[/b][/color]
 673380 076-1 นาย ณภัทร โสดาดง
 673380 309-4 นาย จักรภัทร เอี่ยมเสริม
 673380 358-1 นางสาว เตชินี ถามูลตรี
 673380 354-9 นาย อภิมุข เพียสักขา
+
 "
 fit_content = true
 

@@ -1,10 +1,10 @@
-WEB BUILD - GODOT 4.7
+GODOT 4.7 WEB BUILD
 
-To publish with GitHub Pages:
-1. Upload the contents of this folder (all index.* files and .nojekyll) to the repository root or its docs/ folder.
-2. In the repository, open Settings > Pages and select that branch and folder as the deployment source.
-3. Open the published Pages URL over HTTPS.
+This folder contains the published game files. Keep all index.* files and .nojekyll together.
 
-Keep all index.* files together. The game will not run by opening index.html directly from your computer; it needs a web server.
+GitHub Pages setup:
+1. Push this project to the repository.
+2. In Settings > Pages, select the main branch and /docs folder as the deployment source.
+3. Open the HTTPS Pages URL after the deployment completes.
 
-This Web build uses Godot's Compatibility renderer. Godot 4 does not support exporting C# projects to Web, so the C# I4 connection component is omitted from this Web-only build. The desktop project remains separate.
+To rebuild, open the Godot project and export the Web preset. The preset uses the Compatibility renderer and single-threaded web export. Serve these files from a web server; opening index.html directly from disk will not run the game.

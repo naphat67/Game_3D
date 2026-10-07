@@ -53,7 +53,6 @@ var InventoryItems: Array[InventoryItem] = []
 
 @export_category("Sound")
 var Sounds: Dictionary[String, AudioStreamPlayer3D] = {}
-var MultiplayerSounds: Array[Globals.SoundID] = []
 
 @export_category("GUI")
 @export var WaterGUI: ProgressBar = null
@@ -69,11 +68,15 @@ var MouseCaptured: bool = true
 var Spawned: bool = false
 var Running: bool = false
 var JumpTimer: Timer = Timer.new()
-var MUL: MultiplayerConnection = null
 var LightAmmo: int = 0
 var SmilerHitsTaken: int = 0
+var EntityHits: int = 0
 var IsDead: bool = false
 const LIGHT_BALL_PROJECTILE: PackedScene = preload("res://Prefabs/LightBallProjectile.tscn")
+
+func ChangeLevel(Level: PackedScene) -> void:
+	Globals.LevelToLoad = Level.resource_path
+	get_tree().change_scene_to_file.call_deferred("res://Scenes/LevelLoader.tscn")
 
 func __cast_ray__(From: Vector3, Direction: Vector3, Length: float) -> CollisionObject3D:
 	var hit = get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(
@@ -95,9 +98,6 @@ func PlaySound(Type: String, Sound: AudioStream, ID: Globals.SoundID) -> void:
 	elif (Sounds[Type].playing):
 		StopSound(Type, ID)
 	
-	if (ID not in MultiplayerSounds):
-		MultiplayerSounds.append(ID)
-	
 	var BindedStopSound = StopSound.bind(Type, ID)
 	
 	if (Sounds[Type].finished.is_connected(BindedStopSound)):
@@ -109,9 +109,6 @@ func PlaySound(Type: String, Sound: AudioStream, ID: Globals.SoundID) -> void:
 	Sounds[Type].play()
 
 func StopSound(Type: String, ID: Globals.SoundID) -> void:
-	if (ID in MultiplayerSounds):
-		MultiplayerSounds.erase(ID)
-	
 	if (Type not in Sounds || Sounds[Type] == null):
 		return
 	
@@ -124,29 +121,26 @@ func Die() -> void:
 func WinGame() -> void:
 	FinishGame("YOU WIN")
 
-func FinishGame(Message: String) -> void:
+func FinishGame(message_text: String) -> void:
 	if (IsDead):
 		return
-
 	IsDead = true
 	MouseCaptured = false
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	set_process(false)
 	set_physics_process(false)
-
-	var gameOver = ColorRect.new()
-	gameOver.color = Color(0, 0, 0, 0.8)
-	gameOver.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	$GUI.add_child(gameOver)
-
-	var message = Label.new()
-	message.text = Message
-	message.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	message.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	message.add_theme_font_size_override("font_size", 48)
-	message.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	gameOver.add_child(message)
-
+	var overlay = ColorRect.new()
+	overlay.name = "GameResult"
+	overlay.color = Color(0.0, 0.0, 0.0, 0.82)
+	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	$GUI.add_child(overlay)
+	var result = Label.new()
+	result.text = message_text
+	result.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	result.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	result.add_theme_font_size_override("font_size", 48)
+	result.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	overlay.add_child(result)
 	await get_tree().create_timer(3.0).timeout
 	if (is_inside_tree()):
 		get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
@@ -154,11 +148,37 @@ func FinishGame(Message: String) -> void:
 func TakeSmilerHit() -> void:
 	if (IsDead):
 		return
-
 	SmilerHitsTaken += 1
-	Health = maxf(0, 100.0 - SmilerHitsTaken * 20.0)
+	Health = maxf(0.0, 100.0 - float(SmilerHitsTaken) * 20.0)
 	if (SmilerHitsTaken >= 5):
 		Die()
+	_update_combat_hud()
+
+func SetEntityHitCount(hits: int) -> void:
+	EntityHits = hits
+	_update_combat_hud()
+
+func AddLightAmmo(amount: int = 1) -> void:
+	LightAmmo += amount
+	_update_combat_hud()
+
+func FireLightBall() -> void:
+	if (LightAmmo <= 0 || Head == null || IsDead):
+		return
+	var projectile = LIGHT_BALL_PROJECTILE.instantiate() as LightBallProjectile
+	if (projectile == null):
+		return
+	LightAmmo -= 1
+	get_tree().current_scene.add_child(projectile)
+	projectile.global_position = Head.global_position - Head.global_basis.z * 0.8
+	projectile.Direction = -Head.global_basis.z
+	projectile.Shooter = self
+	_update_combat_hud()
+
+func _update_combat_hud() -> void:
+	var label = get_node_or_null("GUI/LightAmmo") as Label
+	if (label != null):
+		label.text = "Light balls: %d  |  Smiler hits: %d/5  |  Player hits: %d/5" % [LightAmmo, EntityHits, SmilerHitsTaken]
 
 func Inv_FindFirstItemWithTag(Tag: String) -> InventoryItem:
 	for item in InventoryItems:
@@ -197,49 +217,28 @@ func RequestInteract() -> void:
 	if (interactibleObj != null && "Interact" in interactibleObj):
 		interactibleObj.Interact()
 
-func AddLightAmmo(Amount: int = 1) -> void:
-	LightAmmo += Amount
-
-func FireLightBall() -> void:
-	if (LightAmmo <= 0 || Head == null):
-		return
-
-	var projectile = LIGHT_BALL_PROJECTILE.instantiate() as LightBallProjectile
-	if (projectile == null):
-		push_error("Could not create the light ball projectile.")
-		return
-
-	LightAmmo -= 1
-	get_tree().current_scene.add_child(projectile)
-	projectile.global_position = Head.global_position - Head.global_basis.z * 0.8
-	projectile.Direction = -Head.global_basis.z
-	projectile.Shooter = self
-
-func UpdateMultiplayer() -> void:
-	MUL.SetPlayerPosition(global_position)
-	MUL.SetPlayerRotation(global_rotation)
-	MUL.SetPlayerScale(scale)
-	MUL.SetSounds(MultiplayerSounds)
-
 func _init() -> void:
 	Globals.CheckInstance()
 	Sounds = Globals.CreateSoundPlayers(true, self)
 
 func _ready() -> void:
-	# Re-select the gameplay camera after the menu scene is replaced.
 	if (Head is Camera3D):
 		(Head as Camera3D).make_current()
-	# The first-person camera sits inside the player model; hide the local mesh
-	# so the hazmat helmet cannot fill the entire web viewport.
-	var playerSkin = get_node_or_null("PlayerSkin") as Node3D
-	if (playerSkin != null):
-		playerSkin.hide()
+	var player_skin = get_node_or_null("PlayerSkin") as Node3D
+	if (player_skin != null):
+		player_skin.hide()
+	var phone_ui = get_node_or_null("GUI/Phone") as Control
+	if (phone_ui != null):
+		phone_ui.hide()
 	if (InventoryGUI != null):
 		InventoryGUI.hide()
 	InventoryOpen = false
-	Health = 100
+	Health = 100.0
 	SmilerHitsTaken = 0
+	EntityHits = 0
+	LightAmmo = 0
 	IsDead = false
+	_update_combat_hud()
 	add_child(JumpTimer)
 	JumpTimer.autostart = false
 	JumpTimer.one_shot = true
@@ -262,9 +261,7 @@ func _process(Delta: float) -> void:
 	WaterGUI.value = Water
 	FoodGUI.value = Food
 	StaminaGUI.value = Stamina
-	var ammoLabel = get_node_or_null("GUI/LightAmmo") as Label
-	if (ammoLabel != null):
-		ammoLabel.text = "Light balls: %d  |  Left click to fire\nSmiler hits: %d/5" % [LightAmmo, SmilerHitsTaken]
+	_update_combat_hud()
 	
 	if (Input.is_action_just_pressed("toggle_mouse") && !InventoryOpen):
 		MouseCaptured = !MouseCaptured
