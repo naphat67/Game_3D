@@ -51,9 +51,15 @@ func SpawnAwayFromPlayer() -> void:
 	global_position = chosen_position
 
 func _find_floor(point: Vector3) -> Dictionary:
-	var query = PhysicsRayQueryParameters3D.create(point + Vector3.UP * 8.0, point - Vector3.UP * 4.0)
+	# Keep the ray below the ceiling so it can only find the floor near the player.
+	var query = PhysicsRayQueryParameters3D.create(point + Vector3.UP * 2.0, point - Vector3.UP * 4.0)
 	query.exclude = [get_rid(), Player.get_rid()]
-	return get_world_3d().direct_space_state.intersect_ray(query)
+	var hit = get_world_3d().direct_space_state.intersect_ray(query)
+	if (hit.is_empty() || hit.normal.dot(Vector3.UP) < 0.7):
+		return {}
+	if (absf(hit.position.y - Player.global_position.y) > 2.0):
+		return {}
+	return hit
 
 func ChooseWanderDirection() -> void:
 	var angle = RNG.randf_range(0.0, TAU)

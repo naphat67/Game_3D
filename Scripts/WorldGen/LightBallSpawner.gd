@@ -17,9 +17,16 @@ func _ready() -> void:
 		SpawnNextBall()
 
 func _find_floor(point: Vector3) -> Dictionary:
-	var query = PhysicsRayQueryParameters3D.create(point + Vector3.UP * 8.0, point - Vector3.UP * 5.0)
+	# The playable floor is below the player. Starting from above the ceiling
+	# makes the ray hit the ceiling slab first and places pickups overhead.
+	var query = PhysicsRayQueryParameters3D.create(point + Vector3.UP * 2.0, point - Vector3.UP * 4.0)
 	query.exclude = [Player.get_rid()]
-	return Player.get_world_3d().direct_space_state.intersect_ray(query)
+	var hit = Player.get_world_3d().direct_space_state.intersect_ray(query)
+	if (hit.is_empty() || hit.normal.dot(Vector3.UP) < 0.7):
+		return {}
+	if (absf(hit.position.y - Player.global_position.y) > 2.0):
+		return {}
+	return hit
 
 func SpawnNextBall() -> void:
 	if (BallsSpawned >= TOTAL_LIGHT_BALLS || Player == null || !is_instance_valid(Player)):
