@@ -4,8 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://jcjbqre8ap65" path="res://Textures/Level 0 Carpet/Normal.png" id="2_vri7a"]
 
 [resource]
+shading_mode = 2
 albedo_texture = ExtResource("1_nwj12")
-emission_enabled = true
+emission_enabled = false
 emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 1.0
 emission_texture = ExtResource("1_nwj12")
