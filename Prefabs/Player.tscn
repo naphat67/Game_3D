@@ -78,6 +78,7 @@ Prompt_SendMsg = NodePath("../../../GUI/Phone/Screen/I4_0 App/VBoxContainer/Prom
 MessagesContainer = NodePath("../../../GUI/Phone/Screen/I4_0 App/VBoxContainer/Message area/VBoxContainer")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1256130155]
+current = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -0.25)
 
 [node name="AudioListener3D" type="AudioListener3D" parent="Camera3D" unique_id=1472996809]
@@ -104,6 +105,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Phone" type="Control" parent="GUI" unique_id=923565049]
+visible = false
 layout_mode = 1
 anchor_left = 0.7986111
 anchor_top = 0.30864197
