@@ -9,10 +9,10 @@
 [sub_resource type="Environment" id="Environment_fjb22"]
 background_mode = 1
 background_color = Color(0.18, 0.16, 0.1, 1)
-background_energy_multiplier = 0.35
+background_energy_multiplier = 0.8
 ambient_light_source = 2
-ambient_light_color = Color(0.82, 0.76, 0.58, 1)
-ambient_light_energy = 0.45
+ambient_light_color = Color(0.95, 0.9, 0.76, 1)
+ambient_light_energy = 1.35
 
 
 [node name="Level 0" type="Node3D" unique_id=291746162]
@@ -23,7 +23,7 @@ environment = SubResource("Environment_fjb22")
 
 [node name="World" type="Node3D" parent="." unique_id=167701895 node_paths=PackedStringArray("Player")]
 script = ExtResource("2_x0cd5")
-ChunkSize = Vector3i(10, 5, 10)
+ChunkSize = Vector3i(15, 5, 15)
 Chunks = Array[PackedScene]([ExtResource("2_dp2pb")])
 LevelName = "Level 0"
 BlackTextureInsteadOfNoise = true

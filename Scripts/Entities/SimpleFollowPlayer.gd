@@ -3,7 +3,7 @@ extends EntityAI
 @export var Player: CharacterMovement = null
 const NOTICE_DISTANCE: float = 20.0
 const MIN_SPAWN_DISTANCE: float = 30.0
-const MAX_SPAWN_DISTANCE: float = 50.0
+const MAX_SPAWN_DISTANCE: float = 32.0
 const ATTACK_DISTANCE: float = 1.1
 const ATTACK_PAUSE: float = 5.0
 const WANDER_SPEED: float = 2.5
