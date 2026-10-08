@@ -80,6 +80,15 @@ theme_override_colors/font_color = Color(0.55, 0.9, 1, 1)
 theme_override_font_sizes/font_size = 20
 text = "Light balls: 0  |  Smiler hits: 0/5"
 
+[node name="Level0Supplies" type="Label" parent="GUI"]
+offset_left = 24.0
+offset_top = 52.0
+offset_right = 920.0
+offset_bottom = 82.0
+theme_override_colors/font_color = Color(0.72, 0.94, 1, 1)
+theme_override_font_sizes/font_size = 15
+text = "F: pulse 0  |  Q: medkit 0  |  Find 11 light balls and hit Smiler 5 times"
+
 [node name="Inventory" type="PanelContainer" parent="GUI" unique_id=1921782567]
 layout_mode = 1
 anchors_preset = 15

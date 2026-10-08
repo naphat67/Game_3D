@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://5614f2th5nyr" path="res://Prefabs/SimpleFollowPlayer.tscn" id="4_fjb22"]
 [ext_resource type="PackedScene" uid="uid://cr0taqx4d6l1m" path="res://Prefabs/Player.tscn" id="7_oc5sq"]
 [ext_resource type="Script" path="res://Scripts/WorldGen/LightBallSpawner.gd" id="8_spawner"]
+[ext_resource type="Script" path="res://Scripts/WorldGen/Level0SupplySpawner.gd" id="9_supplies"]
 
 [sub_resource type="Environment" id="Environment_fjb22"]
 background_mode = 1
@@ -41,4 +42,8 @@ Player = NodePath("../Player")
 
 [node name="LightBallSpawner" type="Node" parent="." node_paths=PackedStringArray("Player")]
 script = ExtResource("8_spawner")
+Player = NodePath("../Player")
+
+[node name="SupplySpawner" type="Node" parent="." node_paths=PackedStringArray("Player")]
+script = ExtResource("9_supplies")
 Player = NodePath("../Player")

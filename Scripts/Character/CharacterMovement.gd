@@ -71,6 +71,8 @@ var JumpTimer: Timer = Timer.new()
 var LightAmmo: int = 0
 var SmilerHitsTaken: int = 0
 var EntityHits: int = 0
+var PulseCharges: int = 0
+var MedkitCharges: int = 0
 var IsDead: bool = false
 const LIGHT_BALL_PROJECTILE: PackedScene = preload("res://Prefabs/LightBallProjectile.tscn")
 
@@ -150,6 +152,32 @@ func TakeSmilerHit() -> void:
 		Die()
 	_update_combat_hud()
 
+func AddPulseCharge() -> void:
+	PulseCharges += 1
+	_update_combat_hud()
+
+func AddMedkit() -> void:
+	MedkitCharges += 1
+	_update_combat_hud()
+
+func UsePulseCharge() -> void:
+	if (PulseCharges <= 0 || IsDead):
+		return
+	var smiler = get_tree().get_first_node_in_group("level0_smiler")
+	if (smiler == null || !smiler.has_method("StunFor")):
+		return
+	PulseCharges -= 1
+	smiler.StunFor(4.0)
+	_update_combat_hud()
+
+func UseMedkit() -> void:
+	if (MedkitCharges <= 0 || IsDead || SmilerHitsTaken <= 0):
+		return
+	MedkitCharges -= 1
+	SmilerHitsTaken = maxi(0, SmilerHitsTaken - 1)
+	Health = minf(100.0, Health + 20.0)
+	_update_combat_hud()
+
 func SetEntityHitCount(hits: int) -> void:
 	EntityHits = hits
 	_update_combat_hud()
@@ -175,6 +203,9 @@ func _update_combat_hud() -> void:
 	var label = get_node_or_null("GUI/LightAmmo") as Label
 	if (label != null):
 		label.text = "Light balls: %d  |  Smiler hits: %d/5  |  Player hits: %d/5" % [LightAmmo, EntityHits, SmilerHitsTaken]
+	var supply_label = get_node_or_null("GUI/Level0Supplies") as Label
+	if (supply_label != null):
+		supply_label.text = "F: pulse %d  |  Q: medkit %d  |  Find 11 light balls and hit Smiler 5 times" % [PulseCharges, MedkitCharges]
 
 func Inv_FindFirstItemWithTag(Tag: String) -> InventoryItem:
 	for item in InventoryItems:
@@ -233,6 +264,8 @@ func _ready() -> void:
 	SmilerHitsTaken = 0
 	EntityHits = 0
 	LightAmmo = 0
+	PulseCharges = 0
+	MedkitCharges = 0
 	IsDead = false
 	_update_combat_hud()
 	add_child(JumpTimer)
@@ -248,6 +281,11 @@ func _ready() -> void:
 	)
 
 func _input(Event: InputEvent) -> void:
+	if (Event is InputEventKey && Event.pressed && !Event.echo):
+		if (Event.keycode == KEY_F):
+			UsePulseCharge()
+		elif (Event.keycode == KEY_Q):
+			UseMedkit()
 	if (Event is InputEventMouseMotion && MouseCaptured):
 		rotate_y(-Event.relative.x * (Globals.Instance.Sensibility * 0.01))
 		Head.rotate_x(-Event.relative.y * (Globals.Instance.Sensibility * 0.01))
