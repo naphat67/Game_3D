@@ -3,8 +3,16 @@
 [ext_resource type="Script" uid="uid://b47nsqkdjiwgb" path="res://Scripts/Entities/SimpleFollowPlayer.gd" id="1_ai"]
 [ext_resource type="Texture2D" uid="uid://do5ca0pxlxehw" path="res://Textures/Smiler/Smiler.png" id="2_smiler"]
 
+[sub_resource type="SphereMesh" id="SphereMesh_body"]
+radius = 0.72
+height = 1.65
+
+[sub_resource type="StandardMaterial3D" id="Material_body"]
+shading_mode = 0
+albedo_color = Color(0.003, 0.003, 0.008, 1)
+
 [sub_resource type="QuadMesh" id="QuadMesh_smiler_face"]
-size = Vector2(2.0, 1.3)
+size = Vector2(1.0, 0.56)
 
 [sub_resource type="StandardMaterial3D" id="Material_smiler_face"]
 transparency = 1
@@ -23,19 +31,24 @@ collision_layer = 2
 collision_mask = 1
 script = ExtResource("1_ai")
 
+[node name="Body" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.82, 0)
+mesh = SubResource("SphereMesh_body")
+surface_material_override/0 = SubResource("Material_body")
+
 [node name="SmilerFaceFront" type="MeshInstance3D" parent="."]
-position = Vector3(0, 1.25, -0.06)
+position = Vector3(0, 1.05, -0.68)
 mesh = SubResource("QuadMesh_smiler_face")
 surface_material_override/0 = SubResource("Material_smiler_face")
 
 [node name="SmilerFaceBack" type="MeshInstance3D" parent="."]
-position = Vector3(0, 1.25, 0.06)
+position = Vector3(0, 1.05, 0.68)
 rotation = Vector3(0, 3.1415927, 0)
 mesh = SubResource("QuadMesh_smiler_face")
 surface_material_override/0 = SubResource("Material_smiler_face")
 
 [node name="FaceGlow" type="OmniLight3D" parent="."]
-position = Vector3(0, 1.25, 0)
+position = Vector3(0, 1.05, 0)
 light_color = Color(0.9, 0.95, 1, 1)
 light_energy = 1.5
 omni_range = 5.0
