@@ -14,6 +14,9 @@ const DASH_SPEED: float = 8.5
 const DASH_WINDUP: float = 0.8
 const DASH_DURATION: float = 0.85
 const DASH_COOLDOWN: float = 8.0
+const LOST_PLAYER_RESPAWN_TIME: float = 120.0
+const RESPAWN_MIN_DISTANCE: float = 8.0
+const RESPAWN_MAX_DISTANCE: float = 15.0
 
 var RNG := RandomNumberGenerator.new()
 var WanderDirection: Vector3 = Vector3.FORWARD
@@ -24,6 +27,7 @@ var DashTimeLeft: float = 0.0
 var DashCooldownLeft: float = 0.0
 var DashDirection: Vector3 = Vector3.ZERO
 var FaceGlow: OmniLight3D
+var LostPlayerTime: float = 0.0
 
 func _ready() -> void:
 	add_to_group("level0_smiler")
@@ -70,6 +74,36 @@ func SpawnAwayFromPlayer() -> void:
 	global_position = chosen_position
 	look_at(Player.global_position, Vector3.UP)
 
+func RespawnNearPlayer() -> void:
+	var origin = Player.global_position
+	var destination = Vector3.INF
+	for attempt in range(80):
+		var angle = RNG.randf_range(0.0, TAU)
+		var distance = RNG.randf_range(RESPAWN_MIN_DISTANCE, RESPAWN_MAX_DISTANCE)
+		var candidate = origin + Vector3(cos(angle) * distance, 0.0, sin(angle) * distance)
+		var floor_hit = _find_floor(candidate)
+		if (!floor_hit.is_empty()):
+			var floor_position: Vector3 = floor_hit.position + Vector3.UP * 0.15
+			if (floor_position.distance_to(origin) <= RESPAWN_MAX_DISTANCE):
+				destination = floor_position
+				break
+	if (destination == Vector3.INF):
+		var fallback_direction = Vector3(RNG.randf_range(-1.0, 1.0), 0.0, RNG.randf_range(-1.0, 1.0)).normalized()
+		if (fallback_direction.length_squared() < 0.01):
+			fallback_direction = Vector3.FORWARD
+		var fallback_distance = 12.0
+		var fallback = origin + fallback_direction * fallback_distance
+		var fallback_floor = _find_floor(fallback)
+		if (!fallback_floor.is_empty()):
+			destination = fallback_floor.position + Vector3.UP * 0.15
+	if (destination != Vector3.INF):
+		global_position = destination
+		velocity = Vector3.ZERO
+		var to_player = Player.global_position - global_position
+		to_player.y = 0.0
+		if (to_player.length_squared() > 0.01):
+			look_at(global_position + to_player, Vector3.UP)
+
 func _find_floor(point: Vector3) -> Dictionary:
 	# Keep the ray below the ceiling so it can only find the floor near the player.
 	var query = PhysicsRayQueryParameters3D.create(point + Vector3.UP * 2.0, point - Vector3.UP * 4.0)
@@ -110,6 +144,15 @@ func _physics_process(delta: float) -> void:
 	var to_player = Player.global_position - global_position
 	to_player.y = 0.0
 	var distance = to_player.length()
+	var sees_player = distance <= NOTICE_DISTANCE && CanSeePlayer()
+	if (sees_player):
+		LostPlayerTime = 0.0
+	else:
+		LostPlayerTime += delta
+		if (LostPlayerTime >= LOST_PLAYER_RESPAWN_TIME):
+			RespawnNearPlayer()
+			LostPlayerTime = 0.0
+			return
 	DashCooldownLeft = maxf(0.0, DashCooldownLeft - delta)
 
 	if (AttackPauseLeft > 0.0):
@@ -162,7 +205,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	var direction: Vector3
-	if (distance <= NOTICE_DISTANCE && CanSeePlayer()):
+	if (sees_player):
 		if (distance <= DASH_NOTICE_DISTANCE && DashCooldownLeft <= 0.0):
 			DashWindupLeft = DASH_WINDUP
 			return
