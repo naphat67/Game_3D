@@ -37,13 +37,13 @@ mesh = SubResource("SphereMesh_body")
 surface_material_override/0 = SubResource("Material_body")
 
 [node name="SmilerFaceFront" type="MeshInstance3D" parent="."]
-position = Vector3(0, 1.05, -0.68)
+position = Vector3(0, 1.05, -0.75)
+rotation = Vector3(0, 3.1415927, 0)
 mesh = SubResource("QuadMesh_smiler_face")
 surface_material_override/0 = SubResource("Material_smiler_face")
 
 [node name="SmilerFaceBack" type="MeshInstance3D" parent="."]
-position = Vector3(0, 1.05, 0.68)
-rotation = Vector3(0, 3.1415927, 0)
+position = Vector3(0, 1.05, 0.75)
 mesh = SubResource("QuadMesh_smiler_face")
 surface_material_override/0 = SubResource("Material_smiler_face")
 
