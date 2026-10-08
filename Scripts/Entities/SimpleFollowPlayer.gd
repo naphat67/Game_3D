@@ -14,6 +14,8 @@ const DASH_SPEED: float = 8.5
 const DASH_WINDUP: float = 0.8
 const DASH_DURATION: float = 0.85
 const DASH_COOLDOWN: float = 8.0
+const STARE_FREEZE_DISTANCE: float = 15.0
+const STALK_SPEED: float = 5.5
 const LOST_PLAYER_RESPAWN_TIME: float = 120.0
 const RESPAWN_MIN_DISTANCE: float = 8.0
 const RESPAWN_MAX_DISTANCE: float = 15.0
@@ -28,11 +30,18 @@ var DashCooldownLeft: float = 0.0
 var DashDirection: Vector3 = Vector3.ZERO
 var FaceGlow: OmniLight3D
 var LostPlayerTime: float = 0.0
+var FaceFlickerTimer: float = 0.0
+var FaceIsFlickering: bool = false
+var DreadPlayer: AudioStreamPlayer3D
+var DreadPlayback: AudioStreamGeneratorPlayback
+var DreadClock: float = 0.0
+var DreadSampleRate: float = 16000.0
 
 func _ready() -> void:
 	add_to_group("level0_smiler")
 	FaceGlow = get_node_or_null("FaceGlow") as OmniLight3D
 	RNG.randomize()
+	_start_dread_audio()
 	if (Player == null):
 		return
 	killed.connect(Player.WinGame)
@@ -49,6 +58,62 @@ func _ready() -> void:
 	initial_direction.y = 0.0
 	WanderDirection = initial_direction.normalized()
 	WanderTimeLeft = 8.0
+
+func _start_dread_audio() -> void:
+	var stream := AudioStreamGenerator.new()
+	stream.mix_rate = DreadSampleRate
+	stream.buffer_length = 0.35
+	DreadPlayer = AudioStreamPlayer3D.new()
+	DreadPlayer.name = "DreadHum"
+	DreadPlayer.stream = stream
+	DreadPlayer.volume_db = -9.0
+	DreadPlayer.unit_size = 7.0
+	DreadPlayer.max_distance = 32.0
+	add_child(DreadPlayer)
+	DreadPlayer.play()
+	DreadPlayback = DreadPlayer.get_stream_playback() as AudioStreamGeneratorPlayback
+
+func _process(delta: float) -> void:
+	_animate_face_light(delta)
+	_fill_dread_audio()
+
+func _animate_face_light(delta: float) -> void:
+	if (FaceGlow == null || DashWindupLeft > 0.0 || AttackPauseLeft > 0.0):
+		return
+	FaceFlickerTimer -= delta
+	if (FaceFlickerTimer <= 0.0):
+		FaceFlickerTimer = RNG.randf_range(0.035, 0.22)
+		FaceIsFlickering = RNG.randf() < 0.28
+	if (FaceIsFlickering):
+		FaceGlow.light_energy = RNG.randf_range(0.04, 0.28)
+	else:
+		var breathing = 1.0 + sin(Time.get_ticks_msec() * 0.0017) * 0.18
+		FaceGlow.light_energy = 1.25 * breathing
+	FaceGlow.light_color = Color(0.9, 0.95, 1.0)
+
+func _fill_dread_audio() -> void:
+	if (DreadPlayback == null):
+		return
+	var frames_available = DreadPlayback.get_frames_available()
+	var sample_step = 1.0 / DreadSampleRate
+	for frame in range(frames_available):
+		DreadClock += sample_step
+		var breath = 0.72 + 0.28 * sin(DreadClock * 0.72)
+		var dissonance = sin(TAU * 54.0 * DreadClock) * 0.55 + sin(TAU * 57.4 * DreadClock) * 0.45
+		var sub_bass = sin(TAU * 31.0 * DreadClock + sin(DreadClock * 0.8)) * 0.28
+		var scrape_phase = fposmod(DreadClock, 9.0)
+		var scrape_envelope = exp(-scrape_phase * 2.7) if scrape_phase < 1.8 else 0.0
+		var scrape = sin(TAU * (320.0 + 120.0 * sin(DreadClock * 1.3)) * DreadClock) * scrape_envelope * 0.16
+		var sample = (dissonance * 0.075 + sub_bass * 0.07 + scrape) * breath
+		DreadPlayback.push_frame(Vector2(sample, sample))
+
+func _player_is_looking_at_me() -> bool:
+	if (Player == null || Player.Head == null):
+		return false
+	var toward_smiler = global_position + Vector3.UP * 1.05 - Player.Head.global_position
+	if (toward_smiler.length_squared() < 0.01):
+		return true
+	return (-Player.Head.global_basis.z).dot(toward_smiler.normalized()) >= 0.78
 
 func SpawnAwayFromPlayer() -> void:
 	var origin = Player.global_position
@@ -204,13 +269,28 @@ func _physics_process(delta: float) -> void:
 		velocity.z = 0.0
 		return
 
+	var being_watched = sees_player && distance <= STARE_FREEZE_DISTANCE && _player_is_looking_at_me()
+	if (being_watched && DashCooldownLeft > 0.0):
+		velocity.x = 0.0
+		velocity.z = 0.0
+		if (!is_on_floor()):
+			velocity.y -= 9.8 * delta
+		else:
+			velocity.y = 0.0
+		look_at(Player.global_position, Vector3.UP)
+		if (FaceGlow != null):
+			FaceGlow.light_color = Color(0.78, 0.9, 1.0)
+			FaceGlow.light_energy = 0.65 + sin(Time.get_ticks_msec() * 0.008) * 0.2
+		move_and_slide()
+		return
+
 	var direction: Vector3
 	if (sees_player):
 		if (distance <= DASH_NOTICE_DISTANCE && DashCooldownLeft <= 0.0):
 			DashWindupLeft = DASH_WINDUP
 			return
 		direction = to_player.normalized()
-		Speed = CHASE_SPEED
+		Speed = STALK_SPEED if (!being_watched) else CHASE_SPEED
 	else:
 		WanderTimeLeft -= delta
 		if (WanderTimeLeft <= 0.0 || is_on_wall()):
