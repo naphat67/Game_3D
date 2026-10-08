@@ -29,11 +29,24 @@ func _ready() -> void:
 	if (!is_inside_tree()):
 		return
 	SpawnAwayFromPlayer()
-	ChooseWanderDirection()
+	var initial_direction = Player.global_position - global_position
+	initial_direction.y = 0.0
+	WanderDirection = initial_direction.normalized()
+	WanderTimeLeft = 8.0
 
 func SpawnAwayFromPlayer() -> void:
 	var origin = Player.global_position
-	var chosen_position = Vector3(INF, -100.0, INF)
+	var player_floor = _find_floor(origin)
+	var floor_y = origin.y - 0.85
+	if (!player_floor.is_empty()):
+		floor_y = player_floor.position.y + 0.15
+	var fallback_direction = -Player.global_basis.z
+	fallback_direction.y = 0.0
+	if (fallback_direction.length_squared() < 0.01):
+		fallback_direction = Vector3.FORWARD
+	fallback_direction = fallback_direction.normalized()
+	var chosen_position = origin + fallback_direction * 30.5
+	chosen_position.y = floor_y
 	for attempt in range(64):
 		var angle = RNG.randf_range(0.0, TAU)
 		var distance = RNG.randf_range(MIN_SPAWN_DISTANCE, MAX_SPAWN_DISTANCE)
@@ -42,13 +55,8 @@ func SpawnAwayFromPlayer() -> void:
 		if (!floor_hit.is_empty()):
 			chosen_position = floor_hit.position + Vector3.UP * 0.15
 			break
-	if (chosen_position.y < -50.0):
-		push_warning("Could not find floor for Smiler spawn; retrying after world generation.")
-		await get_tree().create_timer(1.0).timeout
-		if (is_inside_tree()):
-			SpawnAwayFromPlayer()
-		return
 	global_position = chosen_position
+	look_at(Player.global_position, Vector3.UP)
 
 func _find_floor(point: Vector3) -> Dictionary:
 	# Keep the ray below the ceiling so it can only find the floor near the player.
