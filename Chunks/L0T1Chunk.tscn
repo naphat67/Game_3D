@@ -140,7 +140,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.999, 0)
 material_override = SubResource("StandardMaterial3D_dpuev")
 mesh = SubResource("QuadMesh_ia6io")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Lights/Light" unique_id=2075153493]
+[node name="OmniLight3D" type="OmniLight3D" parent="Lights/Light" unique_id=2075153493 groups=["level0_horror_lights"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 light_color = Color(1, 0.92156863, 0, 1)
 light_energy = 4.0

@@ -36,11 +36,20 @@ var DreadPlayer: AudioStreamPlayer3D
 var DreadPlayback: AudioStreamGeneratorPlayback
 var DreadClock: float = 0.0
 var DreadSampleRate: float = 16000.0
+var ScareAudioEnvelope: float = 0.0
+var ScareCooldownLeft: float = 0.0
+var ScareRangeWasActive: bool = false
+var StalkBlinkTimer: float = 20.0
+var LightFlickerTimer: float = 0.0
+var LightFlickerStep: float = 0.0
+var FlickerLights: Array[OmniLight3D] = []
+var FlickerOriginalEnergies: Array[float] = []
 
 func _ready() -> void:
 	add_to_group("level0_smiler")
 	FaceGlow = get_node_or_null("FaceGlow") as OmniLight3D
 	RNG.randomize()
+	StalkBlinkTimer = RNG.randf_range(18.0, 29.0)
 	_start_dread_audio()
 	if (Player == null):
 		return
@@ -76,6 +85,98 @@ func _start_dread_audio() -> void:
 func _process(delta: float) -> void:
 	_animate_face_light(delta)
 	_fill_dread_audio()
+	_update_player_fear(delta)
+	_update_nearby_light_flicker(delta)
+
+func _stutter_nearby_lights() -> void:
+	if (LightFlickerTimer > 0.0):
+		return
+	FlickerLights.clear()
+	FlickerOriginalEnergies.clear()
+	for node in get_tree().get_nodes_in_group("level0_horror_lights"):
+		if (node is OmniLight3D && node.global_position.distance_to(global_position) <= 19.0):
+			FlickerLights.append(node)
+			FlickerOriginalEnergies.append(node.light_energy)
+	if (!FlickerLights.is_empty()):
+		LightFlickerTimer = 0.42
+		LightFlickerStep = 0.0
+
+func _update_nearby_light_flicker(delta: float) -> void:
+	if (LightFlickerTimer <= 0.0):
+		return
+	LightFlickerTimer = maxf(0.0, LightFlickerTimer - delta)
+	LightFlickerStep -= delta
+	if (LightFlickerStep <= 0.0 && LightFlickerTimer > 0.0):
+		LightFlickerStep = RNG.randf_range(0.025, 0.075)
+		for index in range(FlickerLights.size()):
+			if (is_instance_valid(FlickerLights[index])):
+				var level = RNG.randf_range(0.0, 0.14) if RNG.randf() < 0.72 else RNG.randf_range(0.25, 0.55)
+				FlickerLights[index].light_energy = FlickerOriginalEnergies[index] * level
+	if (LightFlickerTimer <= 0.0):
+		for index in range(FlickerLights.size()):
+			if (is_instance_valid(FlickerLights[index])):
+				FlickerLights[index].light_energy = FlickerOriginalEnergies[index]
+		FlickerLights.clear()
+		FlickerOriginalEnergies.clear()
+
+func _update_player_fear(delta: float) -> void:
+	if (Player == null || !is_instance_valid(Player) || Player.IsDead):
+		return
+	var distance = global_position.distance_to(Player.global_position)
+	var facing_smiler = distance <= NOTICE_DISTANCE && _player_is_looking_at_me()
+	var fear = clampf((27.0 - distance) / 19.0, 0.0, 1.0)
+	if (facing_smiler && CanSeePlayer()):
+		fear = maxf(fear, 0.78)
+	Player.SetSmilerFearLevel(fear)
+
+	ScareCooldownLeft = maxf(0.0, ScareCooldownLeft - delta)
+	var in_scare_range = facing_smiler && distance <= 8.5 && CanSeePlayer()
+	if (in_scare_range && !ScareRangeWasActive && ScareCooldownLeft <= 0.0):
+		Player.TriggerSmilerJumpscare(1.0)
+		_stutter_nearby_lights()
+		ScareAudioEnvelope = 1.0
+		ScareCooldownLeft = 14.0
+		if (FaceGlow != null):
+			FaceGlow.light_color = Color(1.0, 0.92, 0.82)
+			FaceGlow.light_energy = 7.0
+	ScareRangeWasActive = in_scare_range
+
+	StalkBlinkTimer -= delta
+	if (StalkBlinkTimer <= 0.0):
+		StalkBlinkTimer = RNG.randf_range(20.0, 34.0)
+		if (distance > 8.0 && distance <= 24.0 && !facing_smiler):
+			StalkBlink()
+
+func StalkBlink() -> void:
+	if (Player == null || Player.Head == null):
+		return
+	var forward = -Player.Head.global_basis.z
+	forward.y = 0.0
+	forward = forward.normalized()
+	for attempt in range(40):
+		var angle = RNG.randf_range(0.0, TAU)
+		var distance = RNG.randf_range(8.0, 14.0)
+		var candidate = Player.global_position + Vector3(cos(angle) * distance, 0.0, sin(angle) * distance)
+		var candidate_direction = candidate - Player.Head.global_position
+		candidate_direction.y = 0.0
+		if (candidate_direction.length_squared() > 0.01 && forward.dot(candidate_direction.normalized()) > 0.28):
+			continue
+		var floor_hit = _find_floor(candidate)
+		if (floor_hit.is_empty()):
+			continue
+		var destination: Vector3 = floor_hit.position + Vector3.UP * 0.15
+		if (destination.distance_to(Player.global_position) > 15.0):
+			continue
+		global_position = destination
+		velocity = Vector3.ZERO
+		var to_player = Player.global_position - global_position
+		to_player.y = 0.0
+		if (to_player.length_squared() > 0.01):
+			look_at(global_position + to_player, Vector3.UP)
+		ScareAudioEnvelope = maxf(ScareAudioEnvelope, 0.5)
+		_stutter_nearby_lights()
+		Player.TriggerSmilerJumpscare(0.32)
+		return
 
 func _animate_face_light(delta: float) -> void:
 	if (FaceGlow == null || DashWindupLeft > 0.0 || AttackPauseLeft > 0.0):
@@ -104,7 +205,12 @@ func _fill_dread_audio() -> void:
 		var scrape_phase = fposmod(DreadClock, 9.0)
 		var scrape_envelope = exp(-scrape_phase * 2.7) if scrape_phase < 1.8 else 0.0
 		var scrape = sin(TAU * (320.0 + 120.0 * sin(DreadClock * 1.3)) * DreadClock) * scrape_envelope * 0.16
-		var sample = (dissonance * 0.075 + sub_bass * 0.07 + scrape) * breath
+		var scream = 0.0
+		if (ScareAudioEnvelope > 0.0):
+			var pitch = 190.0 + ScareAudioEnvelope * 1520.0
+			scream = (sin(TAU * pitch * DreadClock) + sin(TAU * pitch * 1.51 * DreadClock) * 0.45) * ScareAudioEnvelope * 0.16
+			ScareAudioEnvelope = maxf(0.0, ScareAudioEnvelope - sample_step * 2.5)
+		var sample = (dissonance * 0.075 + sub_bass * 0.07 + scrape) * breath + scream
 		DreadPlayback.push_frame(Vector2(sample, sample))
 
 func _player_is_looking_at_me() -> bool:
@@ -288,6 +394,8 @@ func _physics_process(delta: float) -> void:
 	if (sees_player):
 		if (distance <= DASH_NOTICE_DISTANCE && DashCooldownLeft <= 0.0):
 			DashWindupLeft = DASH_WINDUP
+			ScareAudioEnvelope = maxf(ScareAudioEnvelope, 0.32)
+			_stutter_nearby_lights()
 			return
 		direction = to_player.normalized()
 		Speed = STALK_SPEED if (!being_watched) else CHASE_SPEED

@@ -75,6 +75,11 @@ var PulseCharges: int = 0
 var MedkitCharges: int = 0
 var IsDead: bool = false
 const LIGHT_BALL_PROJECTILE: PackedScene = preload("res://Prefabs/LightBallProjectile.tscn")
+const SMILER_FEAR_OVERLAY: PackedScene = preload("res://Prefabs/SmilerFearOverlay.tscn")
+var FearOverlay: SmilerFearOverlay
+var CameraHomePosition: Vector3 = Vector3.ZERO
+var CameraShakeTime: float = 0.0
+var CameraShakeStrength: float = 0.0
 
 func __cast_ray__(From: Vector3, Direction: Vector3, Length: float) -> CollisionObject3D:
 	var hit = get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(
@@ -123,6 +128,9 @@ func FinishGame(message_text: String) -> void:
 	if (IsDead):
 		return
 	IsDead = true
+	SetSmilerFearLevel(0.0)
+	CameraShakeTime = 0.0
+	CameraShakeStrength = 0.0
 	MouseCaptured = false
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	set_process(false)
@@ -142,6 +150,16 @@ func FinishGame(message_text: String) -> void:
 	await get_tree().create_timer(3.0).timeout
 	if (is_inside_tree()):
 		get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
+
+func SetSmilerFearLevel(value: float) -> void:
+	if (FearOverlay != null && is_instance_valid(FearOverlay)):
+		FearOverlay.SetFear(value)
+
+func TriggerSmilerJumpscare(intensity: float = 1.0) -> void:
+	if (FearOverlay != null && is_instance_valid(FearOverlay)):
+		FearOverlay.TriggerScare(intensity)
+	CameraShakeTime = 0.42
+	CameraShakeStrength = maxf(CameraShakeStrength, 0.075 * intensity)
 
 func TakeSmilerHit() -> void:
 	if (IsDead):
@@ -251,6 +269,10 @@ func _init() -> void:
 func _ready() -> void:
 	if (Head is Camera3D):
 		(Head as Camera3D).make_current()
+		CameraHomePosition = Head.position
+	if (get_tree().current_scene != null && get_tree().current_scene.name == "Level 0"):
+		FearOverlay = SMILER_FEAR_OVERLAY.instantiate() as SmilerFearOverlay
+		$GUI.add_child(FearOverlay)
 	var player_skin = get_node_or_null("PlayerSkin") as Node3D
 	if (player_skin != null):
 		player_skin.hide()
@@ -296,6 +318,14 @@ func _process(Delta: float) -> void:
 	FoodGUI.value = Food
 	StaminaGUI.value = Stamina
 	_update_combat_hud()
+	if (Head is Camera3D):
+		if (CameraShakeTime > 0.0):
+			CameraShakeTime = maxf(0.0, CameraShakeTime - Delta)
+			var shake = CameraShakeStrength * (CameraShakeTime / 0.42)
+			Head.position = CameraHomePosition + Vector3(randf_range(-shake, shake), randf_range(-shake, shake), 0.0)
+		else:
+			Head.position = CameraHomePosition
+			CameraShakeStrength = 0.0
 	
 	if (Input.is_action_just_pressed("toggle_mouse") && !InventoryOpen):
 		MouseCaptured = !MouseCaptured
