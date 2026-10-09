@@ -4,6 +4,7 @@ extends Node
 	"ViewDistance": null,
 	"ShadowViewDistance": null,
 	"Sensibility": null,
+	"TouchLookSensitivity": null,
 	"GenerationTime": null,
 	"CameraQualityLevel": null,
 	"CameraSaveCompressionLevel": null,
@@ -36,6 +37,9 @@ func Save() -> void:
 		elif ("text" in control):
 			Globals.Instance.set(property_name, control.text)
 	Globals.Instance.SaveConfig()
+
+func SetTouchLookSensitivity(value: float) -> void:
+	Globals.Instance.TouchLookSensitivity = value
 
 func _ready() -> void:
 	Globals.CheckInstance()

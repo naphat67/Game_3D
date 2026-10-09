@@ -23,6 +23,7 @@ var Sound_SFX: float = 0
 #       CONTROLS
 # ====================
 var Sensibility: float = 1.5
+var TouchLookSensitivity: float = 0.6
 
 # ====================
 #         GAME

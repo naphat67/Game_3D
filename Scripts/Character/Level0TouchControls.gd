@@ -5,10 +5,24 @@ class_name Level0TouchControls extends Control
 var PulseButton: Button
 var MedkitButton: Button
 var HeldActions: Array[String] = []
+var LookTouches: Dictionary = {}
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var look_hint := Label.new()
+	look_hint.text = "DRAG TO LOOK"
+	look_hint.anchor_left = 0.52
+	look_hint.anchor_right = 1.0
+	look_hint.offset_left = 0.0
+	look_hint.offset_top = 104.0
+	look_hint.offset_right = -28.0
+	look_hint.offset_bottom = 132.0
+	look_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	look_hint.add_theme_font_size_override("font_size", 14)
+	look_hint.add_theme_color_override("font_color", Color(0.55, 0.78, 0.84, 0.56))
+	look_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(look_hint)
 	_build_movement_pad()
 	_build_action_pad()
 
@@ -24,6 +38,21 @@ func _process(_delta: float) -> void:
 	MedkitButton.text = "MEDKIT\n%d" % Player.MedkitCharges
 	PulseButton.disabled = Player.PulseCharges <= 0
 	MedkitButton.disabled = Player.MedkitCharges <= 0 || Player.SmilerHitsTaken <= 0
+
+func _input(event: InputEvent) -> void:
+	if (Player == null || !is_instance_valid(Player) || Player.InventoryOpen || Player.IsDead):
+		return
+	if (event is InputEventScreenTouch):
+		if (event.pressed && _is_look_zone(event.position)):
+			LookTouches[event.index] = true
+		elif (!event.pressed && LookTouches.has(event.index)):
+			LookTouches.erase(event.index)
+	elif (event is InputEventScreenDrag && LookTouches.has(event.index)):
+		Player.RotateCameraByRelative(event.relative, Globals.Instance.TouchLookSensitivity)
+
+func _is_look_zone(position: Vector2) -> bool:
+	var viewport_size = get_viewport_rect().size
+	return position.x >= viewport_size.x * 0.52 && position.y >= viewport_size.y * 0.08 && position.y <= viewport_size.y * 0.74
 
 func _make_button(label: String, size: Vector2, font_size: int = 18) -> Button:
 	var button := Button.new()

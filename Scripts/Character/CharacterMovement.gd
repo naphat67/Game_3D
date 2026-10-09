@@ -157,6 +157,14 @@ func SetSmilerFearLevel(value: float) -> void:
 	if (FearOverlay != null && is_instance_valid(FearOverlay)):
 		FearOverlay.SetFear(value)
 
+func RotateCameraByRelative(relative: Vector2, sensitivity: float) -> void:
+	if (Head == null || IsDead):
+		return
+	var rotation_scale = sensitivity * 0.01
+	rotate_y(-relative.x * rotation_scale)
+	Head.rotate_x(-relative.y * rotation_scale)
+	Head.rotation_degrees.x = clampf(Head.rotation_degrees.x, MinMaxHeadRotation.x, MinMaxHeadRotation.y)
+
 func TriggerSmilerJumpscare(intensity: float = 1.0) -> void:
 	if (FearOverlay != null && is_instance_valid(FearOverlay)):
 		FearOverlay.TriggerScare(intensity)
@@ -316,9 +324,7 @@ func _input(Event: InputEvent) -> void:
 		elif (Event.keycode == KEY_Q):
 			UseMedkit()
 	if (Event is InputEventMouseMotion && MouseCaptured):
-		rotate_y(-Event.relative.x * (Globals.Instance.Sensibility * 0.01))
-		Head.rotate_x(-Event.relative.y * (Globals.Instance.Sensibility * 0.01))
-		Head.rotation_degrees.x = clampf(Head.rotation_degrees.x, MinMaxHeadRotation.x, MinMaxHeadRotation.y)
+		RotateCameraByRelative(Event.relative, Globals.Instance.Sensibility)
 
 func _process(Delta: float) -> void:
 	WaterGUI.value = Water

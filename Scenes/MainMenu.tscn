@@ -338,6 +338,7 @@ GUI_Elements = {
 &"CameraSaveCompressionLevel": NodePath("../../PanelContainer/Options/TabContainer/TAB_GAME/VBoxContainer/Camera compression level/OptionButton"),
 &"GenerationTime": NodePath("../../PanelContainer/Options/TabContainer/TAB_GAME/VBoxContainer/Map update time/Slider/HSlider"),
 &"Sensibility": NodePath("../../PanelContainer/Options/TabContainer/TAB_CONTROLS/VBoxContainer/Mouse sensibility/Slider/HSlider"),
+&"TouchLookSensitivity": NodePath("../../PanelContainer/Options/TabContainer/TAB_CONTROLS/VBoxContainer/Touch look sensitivity/Slider/HSlider"),
 &"ShadowViewDistance": NodePath("../../PanelContainer/Options/TabContainer/TAB_GRAPHICS/VBoxContainer/Shadow distance/Slider/HSlider"),
 &"Sound_Entity": NodePath("../../PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/Entity volume/Slider/HSlider"),
 &"Sound_Music": NodePath("../../PanelContainer/Options/TabContainer/TAB_SOUND/VBoxContainer/Music volume/Slider/HSlider"),
@@ -838,6 +839,36 @@ text = "99999"
 script = ExtResource("3_8saeu")
 Sl = NodePath("../HSlider")
 
+[node name="Touch look sensitivity" type="VBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Adjust how far the camera turns when you drag on the right side of the screen."
+
+[node name="Label" type="Label" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/VBoxContainer/Touch look sensitivity"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_loo7a")
+text = "Touch look sensitivity"
+
+[node name="Slider" type="HBoxContainer" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/VBoxContainer/Touch look sensitivity"]
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/VBoxContainer/Touch look sensitivity/Slider"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.1
+max_value = 3.0
+step = 0.05
+value = 0.6
+
+[node name="Value" type="Label" parent="PanelContainer/Options/TabContainer/TAB_CONTROLS/VBoxContainer/Touch look sensitivity/Slider" node_paths=PackedStringArray("Sl")]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78431374, 0.65882355, 0.19607843, 1)
+theme_override_fonts/font = ExtResource("4_df05h")
+theme_override_styles/normal = SubResource("StyleBoxLine_8um5k")
+text = "0.6"
+script = ExtResource("3_8saeu")
+Sl = NodePath("../HSlider")
+
 [node name="TAB_GAME" type="ScrollContainer" parent="PanelContainer/Options/TabContainer" unique_id=706413182]
 visible = false
 layout_mode = 2
@@ -987,3 +1018,4 @@ fit_content = true
 [connection signal="pressed" from="VBoxContainer/Credits" to="Scripts/MainMenu" method="ToggleConfigWindow" binds= ["credits"]]
 [connection signal="pressed" from="VBoxContainer/Exit" to="Scripts/MainMenu" method="ExitGame"]
 [connection signal="pressed" from="PanelContainer/Options/Save" to="Scripts/ConfigManager" method="Save"]
+[connection signal="value_changed" from="PanelContainer/Options/TabContainer/TAB_CONTROLS/VBoxContainer/Touch look sensitivity/Slider/HSlider" to="Scripts/ConfigManager" method="SetTouchLookSensitivity"]
