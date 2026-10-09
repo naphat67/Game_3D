@@ -148,21 +148,35 @@ func _build_movement_pad() -> void:
 
 func _build_action_pad() -> void:
 	var action_grid := _make_grid()
-	action_grid.columns = 2
-	_anchor_bottom_right(action_grid, -205, -164, -24, -24)
-	var shoot_button = _make_button("SHOOT", Vector2(88, 76), 15)
+	action_grid.columns = 3
+	_anchor_bottom_right(action_grid, -294, -154, -24, -24)
+	var shoot_button = _make_button("SHOOT", Vector2(88, 68), 13)
 	shoot_button.button_down.connect(_fire_light_ball)
 	action_grid.add_child(shoot_button)
-	var jump_button = _make_button("JUMP", Vector2(88, 76), 15)
+	var jump_button = _make_button("JUMP", Vector2(88, 68), 13)
 	jump_button.button_down.connect(_press_action.bind("move_jump"))
 	jump_button.button_up.connect(_release_action.bind("move_jump"))
 	action_grid.add_child(jump_button)
-	PulseButton = _make_button("PULSE", Vector2(88, 76), 13)
+	var grab_button = _make_button("GRAB\nPLACE", Vector2(88, 68), 11)
+	grab_button.button_down.connect(_interact)
+	action_grid.add_child(grab_button)
+	PulseButton = _make_button("PULSE", Vector2(88, 68), 12)
 	PulseButton.button_down.connect(_use_pulse)
 	action_grid.add_child(PulseButton)
-	MedkitButton = _make_button("MEDKIT", Vector2(88, 76), 12)
+	MedkitButton = _make_button("MEDKIT", Vector2(88, 68), 11)
 	MedkitButton.button_down.connect(_use_medkit)
 	action_grid.add_child(MedkitButton)
+	var throw_button = _make_button("THROW", Vector2(88, 68), 12)
+	throw_button.button_down.connect(_throw_prop)
+	action_grid.add_child(throw_button)
+
+func _interact() -> void:
+	if (Player != null && is_instance_valid(Player)):
+		Player.RequestInteract()
+
+func _throw_prop() -> void:
+	if (Player != null && is_instance_valid(Player)):
+		Player.ThrowHeldProp()
 
 func _use_pulse() -> void:
 	if (Player != null && is_instance_valid(Player)):

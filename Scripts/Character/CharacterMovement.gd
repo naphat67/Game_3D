@@ -50,6 +50,10 @@ var Sanity: float = 100
 var InventoryOpen: bool = false
 var InventoryItems: Array[InventoryItem] = []
 @export var InventoryGUI: Control
+var HeldProp: RigidBody3D = null
+var HeldPropState: Dictionary = {}
+const GRABBABLE_PROP_GROUP: StringName = &"level0_physics_props"
+const HELD_PROP_LOCAL_POSITION: Vector3 = Vector3(0.0, -0.28, -1.35)
 
 @export_category("Sound")
 var Sounds: Dictionary[String, AudioStreamPlayer3D] = {}
@@ -84,10 +88,12 @@ var CameraShakeTime: float = 0.0
 var CameraShakeStrength: float = 0.0
 
 func __cast_ray__(From: Vector3, Direction: Vector3, Length: float) -> CollisionObject3D:
-	var hit = get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(
+	var query = PhysicsRayQueryParameters3D.create(
 		From,
 		From - Direction * Length
-	))
+	)
+	query.exclude = [get_rid()]
+	var hit = get_world_3d().direct_space_state.intersect_ray(query)
 	
 	if (hit):
 		return hit.collider
@@ -233,7 +239,7 @@ func _update_combat_hud() -> void:
 		label.text = "Light balls: %d  |  Smiler hits: %d/5  |  Player hits: %d/5" % [LightAmmo, EntityHits, SmilerHitsTaken]
 	var supply_label = get_node_or_null("GUI/Level0Supplies") as Label
 	if (supply_label != null):
-		supply_label.text = "F: pulse %d  |  Q: medkit %d  |  Find 11 light balls and hit Smiler 5 times" % [PulseCharges, MedkitCharges]
+		supply_label.text = "E: grab/place  |  G: throw  |  F: pulse %d  |  Q: medkit %d  |  Find 11 light balls and hit Smiler 5 times" % [PulseCharges, MedkitCharges]
 
 func Inv_FindFirstItemWithTag(Tag: String) -> InventoryItem:
 	for item in InventoryItems:
@@ -257,9 +263,15 @@ func Inv_UseItem(Item: InventoryItem) -> void:
 			InventoryItems.erase(Item)
 
 func RequestInteract() -> void:
+	if (HeldProp != null):
+		PlaceHeldProp()
+		return
 	var hit = __cast_ray__(Head.global_position, Head.global_basis.z, INTERACTION_MAX_LENGTH)
 	
 	if (!hit):
+		return
+	if (hit is RigidBody3D && hit.is_in_group(GRABBABLE_PROP_GROUP)):
+		GrabProp(hit as RigidBody3D)
 		return
 	
 	var interactibleObj = hit
@@ -271,6 +283,51 @@ func RequestInteract() -> void:
 	
 	if (interactibleObj != null && "Interact" in interactibleObj):
 		interactibleObj.Interact()
+
+func GrabProp(prop: RigidBody3D) -> void:
+	if (HeldProp != null || prop == null || !is_instance_valid(prop) || !prop.is_in_group(GRABBABLE_PROP_GROUP)):
+		return
+	HeldPropState = {
+		"collision_layer": prop.collision_layer,
+		"collision_mask": prop.collision_mask,
+		"gravity_scale": prop.gravity_scale,
+		"freeze": prop.freeze,
+	}
+	prop.sleeping = true
+	prop.freeze = true
+	prop.collision_layer = 0
+	prop.collision_mask = 0
+	prop.gravity_scale = 0.0
+	prop.reparent(Head, false)
+	prop.transform = Transform3D(Basis.IDENTITY, HELD_PROP_LOCAL_POSITION)
+	HeldProp = prop
+
+func PlaceHeldProp(throw_prop: bool = false) -> void:
+	if (HeldProp == null || !is_instance_valid(HeldProp)):
+		HeldProp = null
+		HeldPropState.clear()
+		return
+	var prop := HeldProp
+	var drop_position = Head.global_position - Head.global_basis.z * 1.65 - Vector3.UP * 0.65
+	var drop_rotation = Vector3(0.0, rotation.y, 0.0)
+	prop.reparent(get_tree().current_scene, true)
+	prop.global_position = drop_position
+	prop.global_rotation = drop_rotation
+	prop.collision_layer = int(HeldPropState.get("collision_layer", 4))
+	prop.collision_mask = int(HeldPropState.get("collision_mask", 5))
+	prop.gravity_scale = float(HeldPropState.get("gravity_scale", 1.0))
+	prop.freeze = bool(HeldPropState.get("freeze", false))
+	prop.linear_velocity = Vector3.ZERO
+	prop.angular_velocity = Vector3.ZERO
+	prop.sleeping = false
+	HeldProp = null
+	HeldPropState.clear()
+	if (throw_prop):
+		prop.apply_central_impulse(-Head.global_basis.z * 7.5 + Vector3.UP * 1.3)
+
+func ThrowHeldProp() -> void:
+	if (HeldProp != null):
+		PlaceHeldProp(true)
 
 func _init() -> void:
 	Globals.CheckInstance()
@@ -288,6 +345,7 @@ func _ready() -> void:
 		touch_controls.Player = self
 		$GUI.add_child(touch_controls)
 		TouchControlsEnabled = true
+		_add_center_dot()
 	var player_skin = get_node_or_null("PlayerSkin") as Node3D
 	if (player_skin != null):
 		player_skin.hide()
@@ -323,8 +381,20 @@ func _input(Event: InputEvent) -> void:
 			UsePulseCharge()
 		elif (Event.keycode == KEY_Q):
 			UseMedkit()
+		elif (Event.keycode == KEY_G):
+			ThrowHeldProp()
 	if (Event is InputEventMouseMotion && MouseCaptured):
 		RotateCameraByRelative(Event.relative, Globals.Instance.Sensibility)
+
+func _add_center_dot() -> void:
+	var dot := ColorRect.new()
+	dot.name = "CenterDot"
+	dot.color = Color(0.92, 1.0, 1.0, 0.95)
+	dot.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	dot.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	dot.position = Vector2(-2.0, -2.0)
+	dot.size = Vector2(4.0, 4.0)
+	$GUI.add_child(dot)
 
 func _process(Delta: float) -> void:
 	WaterGUI.value = Water
@@ -345,6 +415,8 @@ func _process(Delta: float) -> void:
 	
 	if (Input.is_action_just_pressed("act_interact") && MouseCaptured):
 		RequestInteract()
+	if (Input.is_action_just_pressed("act_throw") && MouseCaptured):
+		ThrowHeldProp()
 	
 	if (Input.is_action_just_pressed("act_whistling") && MouseCaptured):
 		var id = WHISTLING_SOUNDS.keys()[randi() % WHISTLING_SOUNDS.size()]
