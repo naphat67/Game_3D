@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Character/Level0TouchControls.gd" id="1_script"]
+
+[node name="Level0TouchControls" type="Control" node_paths=PackedStringArray("Player")]
+mouse_filter = 2
+script = ExtResource("1_script")
+Player = NodePath("../..")

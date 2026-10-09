@@ -76,7 +76,9 @@ var MedkitCharges: int = 0
 var IsDead: bool = false
 const LIGHT_BALL_PROJECTILE: PackedScene = preload("res://Prefabs/LightBallProjectile.tscn")
 const SMILER_FEAR_OVERLAY: PackedScene = preload("res://Prefabs/SmilerFearOverlay.tscn")
+const LEVEL0_TOUCH_CONTROLS: PackedScene = preload("res://Prefabs/Level0TouchControls.tscn")
 var FearOverlay: SmilerFearOverlay
+var TouchControlsEnabled: bool = false
 var CameraHomePosition: Vector3 = Vector3.ZERO
 var CameraShakeTime: float = 0.0
 var CameraShakeStrength: float = 0.0
@@ -274,6 +276,10 @@ func _ready() -> void:
 		set_collision_mask_value(3, true)
 		FearOverlay = SMILER_FEAR_OVERLAY.instantiate() as SmilerFearOverlay
 		$GUI.add_child(FearOverlay)
+		var touch_controls = LEVEL0_TOUCH_CONTROLS.instantiate() as Level0TouchControls
+		touch_controls.Player = self
+		$GUI.add_child(touch_controls)
+		TouchControlsEnabled = true
 	var player_skin = get_node_or_null("PlayerSkin") as Node3D
 	if (player_skin != null):
 		player_skin.hide()
@@ -372,7 +378,8 @@ func _process(Delta: float) -> void:
 		Die()
 
 func _physics_process(Delta: float) -> void:
-	var inputDir = Input.get_vector("move_left", "move_right", "move_forward", "move_backwards") * int(MouseCaptured)
+	var input_enabled = MouseCaptured || (TouchControlsEnabled && !InventoryOpen)
+	var inputDir = Input.get_vector("move_left", "move_right", "move_forward", "move_backwards") * int(input_enabled)
 	
 	if (is_on_floor()):
 		FallTime = 0
