@@ -421,3 +421,26 @@ func _physics_process(Delta: float) -> void:
 	
 	Stamina = clampf(Stamina, 0, 100)
 	move_and_slide()
+	_push_level0_physics_props()
+
+func _push_level0_physics_props() -> void:
+	var push_direction = CurrentDirection
+	push_direction.y = 0.0
+	if (push_direction.length_squared() < 0.01):
+		return
+	push_direction = push_direction.normalized()
+	for index in range(get_slide_collision_count()):
+		var collision = get_slide_collision(index)
+		var body = collision.get_collider()
+		if (!(body is RigidBody3D)):
+			continue
+		var prop = body as RigidBody3D
+		if (!prop.is_in_group("level0_physics_props")):
+			continue
+		var push_alignment = push_direction.dot(-collision.get_normal())
+		if (push_alignment <= 0.2):
+			continue
+		prop.sleeping = false
+		var impact = (1.0 + CurrentSpeed * 0.24) * push_alignment
+		var impact_offset = collision.get_position() - prop.global_position
+		prop.apply_impulse(push_direction * impact, impact_offset)
