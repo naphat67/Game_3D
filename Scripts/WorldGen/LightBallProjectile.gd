@@ -16,7 +16,9 @@ func _physics_process(Delta: float) -> void:
 	var exclusions: Array[RID] = []
 	if (Shooter != null && is_instance_valid(Shooter)):
 		exclusions.append(Shooter.get_rid())
-	var query = PhysicsRayQueryParameters3D.create(global_position, nextPosition, 0x7FFFFFFF, exclusions)
+	# Ignore furniture collision layer 3 (bit 4) so light shots pass through props
+	# while still hitting the level geometry and Smiler.
+	var query = PhysicsRayQueryParameters3D.create(global_position, nextPosition, 3, exclusions)
 	var hit = get_world_3d().direct_space_state.intersect_ray(query)
 	if (!hit.is_empty()):
 		var collider = hit["collider"]

@@ -25,6 +25,7 @@ func _find_spawn() -> Vector3:
 		var distance = RNG.randf_range(10.0, 20.0)
 		var point = Player.global_position + Vector3(cos(angle) * distance, 2.0, sin(angle) * distance)
 		var query = PhysicsRayQueryParameters3D.create(point, point + Vector3.DOWN * 6.0)
+		query.collision_mask = 1
 		query.exclude = [Player.get_rid()]
 		var hit = Player.get_world_3d().direct_space_state.intersect_ray(query)
 		if (!hit.is_empty() && hit.normal.dot(Vector3.UP) > 0.7 && absf(hit.position.y - Player.global_position.y) < 2.0):

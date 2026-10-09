@@ -20,6 +20,7 @@ func _find_floor(point: Vector3) -> Dictionary:
 	# The playable floor is below the player. Starting from above the ceiling
 	# makes the ray hit the ceiling slab first and places pickups overhead.
 	var query = PhysicsRayQueryParameters3D.create(point + Vector3.UP * 2.0, point - Vector3.UP * 4.0)
+	query.collision_mask = 1
 	query.exclude = [Player.get_rid()]
 	var hit = Player.get_world_3d().direct_space_state.intersect_ray(query)
 	if (hit.is_empty() || hit.normal.dot(Vector3.UP) < 0.7):

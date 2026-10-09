@@ -278,6 +278,7 @@ func RespawnNearPlayer() -> void:
 func _find_floor(point: Vector3) -> Dictionary:
 	# Keep the ray below the ceiling so it can only find the floor near the player.
 	var query = PhysicsRayQueryParameters3D.create(point + Vector3.UP * 2.0, point - Vector3.UP * 4.0)
+	query.collision_mask = 1
 	query.exclude = [get_rid(), Player.get_rid()]
 	var hit = get_world_3d().direct_space_state.intersect_ray(query)
 	if (hit.is_empty() || hit.normal.dot(Vector3.UP) < 0.7):

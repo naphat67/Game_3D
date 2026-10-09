@@ -271,6 +271,7 @@ func _ready() -> void:
 		(Head as Camera3D).make_current()
 		CameraHomePosition = Head.position
 	if (get_tree().current_scene != null && get_tree().current_scene.name == "Level 0"):
+		set_collision_mask_value(3, true)
 		FearOverlay = SMILER_FEAR_OVERLAY.instantiate() as SmilerFearOverlay
 		$GUI.add_child(FearOverlay)
 	var player_skin = get_node_or_null("PlayerSkin") as Node3D
